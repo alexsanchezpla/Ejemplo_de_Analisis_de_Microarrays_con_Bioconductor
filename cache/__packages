@@ -1,12 +1,5 @@
 base
-methods
-datasets
-utils
-grDevices
-graphics
-stats
 knitr
-parallel
 BiocGenerics
 Biobase
 affy
@@ -14,7 +7,6 @@ arrayQualityMetrics
 genefilter
 multtest
 limma
-stats4
 S4Vectors
 IRanges
 AnnotationDbi

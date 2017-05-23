@@ -102,7 +102,9 @@ plot(clust.euclid.average, labels=sampleNames, main="Hierarchical clustering of 
 
 ## ----arrayQuality, cache=TRUE, warning=FALSE-----------------------------
 stopifnot(require(arrayQualityMetrics))
-arrayQualityMetrics(rawData, outdir = file.path(resultsDir, "arrayQuality"), 
+arrayQualityMetrics(rawData, 
+                    intgroup = "Group",
+                    outdir = file.path(resultsDir, "arrayQuality"), 
                     force=TRUE)
 
 ## ----normalization.rma, eval=TRUE----------------------------------------
@@ -111,6 +113,11 @@ eset_rma <- rma(rawData)
 
 ## ----normBoxPlot, eval=TRUE----------------------------------------------
 boxplot(eset_rma,main="RMA", names=sampleNames, cex.axis=0.7, col=colores,las=2)
+
+## ----variancePlot--------------------------------------------------------
+sds <- apply (exprs(eset_rma), 1, sd)
+sdsO<- sort(sds)
+plot(1:length(sdsO), sdsO, main="Global variation over all genes")
 
 ## ----filtraje------------------------------------------------------------
 require(genefilter)

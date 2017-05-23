@@ -19,8 +19,8 @@ opts_chunk$set(fig.path='images/grafic', tidy=FALSE, cache=FALSE)
 \newcommand{\Rcode}[1]{{\texttt{#1}}}
 \newcommand{\Rfun}[1]{{\texttt{#1}}}
 
-\title{Genómica funcional y análisis de microarrays\\
-  Primera PEC : Selección de genes expresados diferencialmente}
+\title{Análisis de datos de microarrays con R y Bioconductor\\
+Selección de genes diferencialmente expresados}
 
 \author{Alex Sánchez}
 
@@ -324,7 +324,9 @@ El paquete \Rpackage{arrayQualitMetrics} encapsula todos los análisis anteriore
 
 <<arrayQuality, cache=TRUE, warning=FALSE>>=
 stopifnot(require(arrayQualityMetrics))
-arrayQualityMetrics(rawData, outdir = file.path(resultsDir, "arrayQuality"), 
+arrayQualityMetrics(rawData, 
+                    intgroup = "Group",
+                    outdir = file.path(resultsDir, "arrayQuality"), 
                     force=TRUE)
 @
 
@@ -363,6 +365,17 @@ boxplot(eset_rma,main="RMA", names=sampleNames, cex.axis=0.7, col=colores,las=2)
 \end{figure}
 
 \subsubsection{Filtraje}
+
+La selección de genes diferencialmente expresados se ve afectada por el número de genes sobre la que la hacemos. Cuántos más son, mayor será el ajuste necesario de p-valores (como se verá a continuación) lo que conllevará que podamos acabar descartando erróneamente más genes.
+
+Por este motivo interesa reducir el total de genes que examinamos, es decir si podemos descartar los genes que, razonablemente no van a estar diferencialmente expresados podremos reducir el total sin apenas riesgo de descartar genes interesantes. Para ello podemos fijarnos, por ejemplo en la variabilidad global de cada gen, es decir sin tener en cuenta los grupos. La idea será que si un gen está diferencialmente expresado es preciso que haya una cierta diferencia entre los grupos, y por lo tanto la varianza global del gen será mayor que la de aquellos que no presentan expresión diferencial. Si hacemos un gráfico de la variabilidad de todos los genes, deberíamos poder diferenciar los genes que varian más (es decir que presentan expresión diferencial) de los que no la presentan. 
+
+<<variancePlot>>=
+sds <- apply (exprs(eset_rma), 1, sd)
+sdsO<- sort(sds)
+plot(1:length(sdsO), sdsO, main="Global variation over all genes")
+@
+
 
 El filtraje \emph{no específico} permite eliminar los genes que varían poco entre condiciones o que deseamos quitar por otras razones como por ejemplo que no disponemos de anotación para ellos. La función \texttt{nsFilter} permite eliminar los genes que, o bien varían poco, o bien no se dispone de anotación para ellos.
 

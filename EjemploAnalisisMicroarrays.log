@@ -1,0 +1,1492 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.6.11)  24 MAY 2017 00:36
+entering extended mode
+**./EjemploAnalisisMicroarrays.tex
+(EjemploAnalisisMicroarrays.tex
+LaTeX2e <2015/10/01> patch level 2
+Babel <3.9n> and hyphenation patterns for 69 languages loaded.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\article.cls"
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\size10.clo"
+File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 94.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count87
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\color.sty"
+Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 142.
+)
+(C:\Users\Alexandre\AppData\Roaming\MiKTeX\2.9\tex\latex\framed\framed.sty
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip43
+\fb@frw=\dimen105
+\fb@frh=\dimen106
+\FrameRule=\dimen107
+\FrameSep=\dimen108
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\alltt.sty"
+Package: alltt 1997/06/16 v2.0g defines alltt environment
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hyperref.sty"
+Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-hyperref.sty"
+Package: hobsub-hyperref 2012/04/25 v1.12 Bundle oberdiek, subset hyperref (HO)
+
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-generic.sty"
+Package: hobsub-generic 2012/04/25 v1.12 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2012/04/25 v1.12 Construct package bundles (HO)
+Package hobsub Info: Skipping package `infwarerr' (already loaded).
+Package hobsub Info: Skipping package `ltxcmds' (already loaded).
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+Package: intcalc 2007/09/27 v1.1 Expandable calculations with integers (HO)
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+Package: pdfescape 2011/11/25 v1.13 Implements pdfTeX's escape features (HO)
+Package: bigintcalc 2012/04/08 v1.3 Expandable calculations on big integers (HO
+)
+Package: bitset 2011/01/30 v1.1 Handle bit-vector datatype (HO)
+Package: uniquecounter 2011/01/30 v1.2 Provide unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2010/09/02 v1.4 Let assignment for LaTeX macros (HO)
+Package: hopatch 2011/06/24 v1.1 Wrapper for package hooks (HO)
+Package: xcolor-patch 2011/01/30 xcolor patch
+Package: atveryend 2011/06/30 v1.8 Hooks at the very end of document (HO)
+Package atveryend Info: \enddocument detected (standard20110627).
+Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
+Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
+Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\auxhook.sty"
+Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+)
+\@linkdim=\dimen109
+\Hy@linkcounter=\count88
+\Hy@pagecounter=\count89
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\pd1enc.def"
+File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
+)
+\Hy@SavedSpaceFactor=\count90
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg"
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Hyper figures OFF on input line 4443.
+Package hyperref Info: Link nesting OFF on input line 4448.
+Package hyperref Info: Hyper index ON on input line 4451.
+Package hyperref Info: Plain pages OFF on input line 4458.
+Package hyperref Info: Backreferencing OFF on input line 4463.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4688.
+\c@Hy@tempcnt=\count91
+
+(C:\Users\Alexandre\AppData\Roaming\MiKTeX\2.9\tex\latex\url\url.sty
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 5041.
+\XeTeXLinkMargin=\dimen110
+\Fld@menulength=\count92
+\Field@Width=\dimen111
+\Fld@charsize=\dimen112
+Package hyperref Info: Hyper figures OFF on input line 6295.
+Package hyperref Info: Link nesting OFF on input line 6300.
+Package hyperref Info: Hyper index ON on input line 6303.
+Package hyperref Info: backreferencing OFF on input line 6310.
+Package hyperref Info: Link coloring OFF on input line 6315.
+Package hyperref Info: Link coloring with OCG OFF on input line 6320.
+Package hyperref Info: PDF/A mode OFF on input line 6325.
+LaTeX Info: Redefining \ref on input line 6365.
+LaTeX Info: Redefining \pageref on input line 6369.
+\Hy@abspage=\count93
+\c@Item=\count94
+\c@Hfootnote=\count95
+)
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def"
+File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
+\Fld@listcount=\count96
+\c@bookmark@seq@number=\count97
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\rerunfilecheck.sty"
+Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+82.
+)
+\Hy@SectionHShift=\skip44
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\longtable.sty"
+Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
+\LTleft=\skip45
+\LTright=\skip46
+\LTpre=\skip47
+\LTpost=\skip48
+\LTchunksize=\count98
+\LTcapwidth=\dimen113
+\LT@head=\box26
+\LT@firsthead=\box27
+\LT@foot=\box28
+\LT@lastfoot=\box29
+\LT@cols=\count99
+\LT@rows=\count100
+\c@LT@tables=\count101
+\c@LT@chunks=\count102
+\LT@p@ftn=\toks15
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\inputenc.sty"
+Package: inputenc 2015/03/17 v1.2c Input encoding file
+\inpenc@prehook=\toks16
+\inpenc@posthook=\toks17
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\utf8.def"
+File: utf8.def 2015/09/07 v1.1p UTF-8 support for inputenc
+Now handling font encoding OML ...
+... no UTF-8 mapping file for font encoding OML
+Now handling font encoding T1 ...
+... processing UTF-8 mapping file for font encoding T1
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1enc.dfu"
+File: t1enc.dfu 2015/09/07 v1.1p UTF-8 support for inputenc
+   defining Unicode char U+00A0 (decimal 160)
+   defining Unicode char U+00A1 (decimal 161)
+   defining Unicode char U+00A3 (decimal 163)
+   defining Unicode char U+00AB (decimal 171)
+   defining Unicode char U+00AD (decimal 173)
+   defining Unicode char U+00BB (decimal 187)
+   defining Unicode char U+00BF (decimal 191)
+   defining Unicode char U+00C0 (decimal 192)
+   defining Unicode char U+00C1 (decimal 193)
+   defining Unicode char U+00C2 (decimal 194)
+   defining Unicode char U+00C3 (decimal 195)
+   defining Unicode char U+00C4 (decimal 196)
+   defining Unicode char U+00C5 (decimal 197)
+   defining Unicode char U+00C6 (decimal 198)
+   defining Unicode char U+00C7 (decimal 199)
+   defining Unicode char U+00C8 (decimal 200)
+   defining Unicode char U+00C9 (decimal 201)
+   defining Unicode char U+00CA (decimal 202)
+   defining Unicode char U+00CB (decimal 203)
+   defining Unicode char U+00CC (decimal 204)
+   defining Unicode char U+00CD (decimal 205)
+   defining Unicode char U+00CE (decimal 206)
+   defining Unicode char U+00CF (decimal 207)
+   defining Unicode char U+00D0 (decimal 208)
+   defining Unicode char U+00D1 (decimal 209)
+   defining Unicode char U+00D2 (decimal 210)
+   defining Unicode char U+00D3 (decimal 211)
+   defining Unicode char U+00D4 (decimal 212)
+   defining Unicode char U+00D5 (decimal 213)
+   defining Unicode char U+00D6 (decimal 214)
+   defining Unicode char U+00D8 (decimal 216)
+   defining Unicode char U+00D9 (decimal 217)
+   defining Unicode char U+00DA (decimal 218)
+   defining Unicode char U+00DB (decimal 219)
+   defining Unicode char U+00DC (decimal 220)
+   defining Unicode char U+00DD (decimal 221)
+   defining Unicode char U+00DE (decimal 222)
+   defining Unicode char U+00DF (decimal 223)
+   defining Unicode char U+00E0 (decimal 224)
+   defining Unicode char U+00E1 (decimal 225)
+   defining Unicode char U+00E2 (decimal 226)
+   defining Unicode char U+00E3 (decimal 227)
+   defining Unicode char U+00E4 (decimal 228)
+   defining Unicode char U+00E5 (decimal 229)
+   defining Unicode char U+00E6 (decimal 230)
+   defining Unicode char U+00E7 (decimal 231)
+   defining Unicode char U+00E8 (decimal 232)
+   defining Unicode char U+00E9 (decimal 233)
+   defining Unicode char U+00EA (decimal 234)
+   defining Unicode char U+00EB (decimal 235)
+   defining Unicode char U+00EC (decimal 236)
+   defining Unicode char U+00ED (decimal 237)
+   defining Unicode char U+00EE (decimal 238)
+   defining Unicode char U+00EF (decimal 239)
+   defining Unicode char U+00F0 (decimal 240)
+   defining Unicode char U+00F1 (decimal 241)
+   defining Unicode char U+00F2 (decimal 242)
+   defining Unicode char U+00F3 (decimal 243)
+   defining Unicode char U+00F4 (decimal 244)
+   defining Unicode char U+00F5 (decimal 245)
+   defining Unicode char U+00F6 (decimal 246)
+   defining Unicode char U+00F8 (decimal 248)
+   defining Unicode char U+00F9 (decimal 249)
+   defining Unicode char U+00FA (decimal 250)
+   defining Unicode char U+00FB (decimal 251)
+   defining Unicode char U+00FC (decimal 252)
+   defining Unicode char U+00FD (decimal 253)
+   defining Unicode char U+00FE (decimal 254)
+   defining Unicode char U+00FF (decimal 255)
+   defining Unicode char U+0102 (decimal 258)
+   defining Unicode char U+0103 (decimal 259)
+   defining Unicode char U+0104 (decimal 260)
+   defining Unicode char U+0105 (decimal 261)
+   defining Unicode char U+0106 (decimal 262)
+   defining Unicode char U+0107 (decimal 263)
+   defining Unicode char U+010C (decimal 268)
+   defining Unicode char U+010D (decimal 269)
+   defining Unicode char U+010E (decimal 270)
+   defining Unicode char U+010F (decimal 271)
+   defining Unicode char U+0110 (decimal 272)
+   defining Unicode char U+0111 (decimal 273)
+   defining Unicode char U+0118 (decimal 280)
+   defining Unicode char U+0119 (decimal 281)
+   defining Unicode char U+011A (decimal 282)
+   defining Unicode char U+011B (decimal 283)
+   defining Unicode char U+011E (decimal 286)
+   defining Unicode char U+011F (decimal 287)
+   defining Unicode char U+0130 (decimal 304)
+   defining Unicode char U+0131 (decimal 305)
+   defining Unicode char U+0132 (decimal 306)
+   defining Unicode char U+0133 (decimal 307)
+   defining Unicode char U+0139 (decimal 313)
+   defining Unicode char U+013A (decimal 314)
+   defining Unicode char U+013D (decimal 317)
+   defining Unicode char U+013E (decimal 318)
+   defining Unicode char U+0141 (decimal 321)
+   defining Unicode char U+0142 (decimal 322)
+   defining Unicode char U+0143 (decimal 323)
+   defining Unicode char U+0144 (decimal 324)
+   defining Unicode char U+0147 (decimal 327)
+   defining Unicode char U+0148 (decimal 328)
+   defining Unicode char U+014A (decimal 330)
+   defining Unicode char U+014B (decimal 331)
+   defining Unicode char U+0150 (decimal 336)
+   defining Unicode char U+0151 (decimal 337)
+   defining Unicode char U+0152 (decimal 338)
+   defining Unicode char U+0153 (decimal 339)
+   defining Unicode char U+0154 (decimal 340)
+   defining Unicode char U+0155 (decimal 341)
+   defining Unicode char U+0158 (decimal 344)
+   defining Unicode char U+0159 (decimal 345)
+   defining Unicode char U+015A (decimal 346)
+   defining Unicode char U+015B (decimal 347)
+   defining Unicode char U+015E (decimal 350)
+   defining Unicode char U+015F (decimal 351)
+   defining Unicode char U+0160 (decimal 352)
+   defining Unicode char U+0161 (decimal 353)
+   defining Unicode char U+0162 (decimal 354)
+   defining Unicode char U+0163 (decimal 355)
+   defining Unicode char U+0164 (decimal 356)
+   defining Unicode char U+0165 (decimal 357)
+   defining Unicode char U+016E (decimal 366)
+   defining Unicode char U+016F (decimal 367)
+   defining Unicode char U+0170 (decimal 368)
+   defining Unicode char U+0171 (decimal 369)
+   defining Unicode char U+0174 (decimal 372)
+   defining Unicode char U+0175 (decimal 373)
+   defining Unicode char U+0176 (decimal 374)
+   defining Unicode char U+0177 (decimal 375)
+   defining Unicode char U+0178 (decimal 376)
+   defining Unicode char U+0179 (decimal 377)
+   defining Unicode char U+017A (decimal 378)
+   defining Unicode char U+017B (decimal 379)
+   defining Unicode char U+017C (decimal 380)
+   defining Unicode char U+017D (decimal 381)
+   defining Unicode char U+017E (decimal 382)
+   defining Unicode char U+0218 (decimal 536)
+   defining Unicode char U+0219 (decimal 537)
+   defining Unicode char U+021A (decimal 538)
+   defining Unicode char U+021B (decimal 539)
+   defining Unicode char U+200C (decimal 8204)
+   defining Unicode char U+2013 (decimal 8211)
+   defining Unicode char U+2014 (decimal 8212)
+   defining Unicode char U+2018 (decimal 8216)
+   defining Unicode char U+2019 (decimal 8217)
+   defining Unicode char U+201A (decimal 8218)
+   defining Unicode char U+201C (decimal 8220)
+   defining Unicode char U+201D (decimal 8221)
+   defining Unicode char U+201E (decimal 8222)
+   defining Unicode char U+2030 (decimal 8240)
+   defining Unicode char U+2031 (decimal 8241)
+   defining Unicode char U+2039 (decimal 8249)
+   defining Unicode char U+203A (decimal 8250)
+   defining Unicode char U+2423 (decimal 9251)
+)
+Now handling font encoding OT1 ...
+... processing UTF-8 mapping file for font encoding OT1
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ot1enc.dfu"
+File: ot1enc.dfu 2015/09/07 v1.1p UTF-8 support for inputenc
+   defining Unicode char U+00A0 (decimal 160)
+   defining Unicode char U+00A1 (decimal 161)
+   defining Unicode char U+00A3 (decimal 163)
+   defining Unicode char U+00AD (decimal 173)
+   defining Unicode char U+00B8 (decimal 184)
+   defining Unicode char U+00BF (decimal 191)
+   defining Unicode char U+00C5 (decimal 197)
+   defining Unicode char U+00C6 (decimal 198)
+   defining Unicode char U+00D8 (decimal 216)
+   defining Unicode char U+00DF (decimal 223)
+   defining Unicode char U+00E6 (decimal 230)
+   defining Unicode char U+00EC (decimal 236)
+   defining Unicode char U+00ED (decimal 237)
+   defining Unicode char U+00EE (decimal 238)
+   defining Unicode char U+00EF (decimal 239)
+   defining Unicode char U+00F8 (decimal 248)
+   defining Unicode char U+0131 (decimal 305)
+   defining Unicode char U+0141 (decimal 321)
+   defining Unicode char U+0142 (decimal 322)
+   defining Unicode char U+0152 (decimal 338)
+   defining Unicode char U+0153 (decimal 339)
+   defining Unicode char U+0174 (decimal 372)
+   defining Unicode char U+0175 (decimal 373)
+   defining Unicode char U+0176 (decimal 374)
+   defining Unicode char U+0177 (decimal 375)
+   defining Unicode char U+0218 (decimal 536)
+   defining Unicode char U+0219 (decimal 537)
+   defining Unicode char U+021A (decimal 538)
+   defining Unicode char U+021B (decimal 539)
+   defining Unicode char U+2013 (decimal 8211)
+   defining Unicode char U+2014 (decimal 8212)
+   defining Unicode char U+2018 (decimal 8216)
+   defining Unicode char U+2019 (decimal 8217)
+   defining Unicode char U+201C (decimal 8220)
+   defining Unicode char U+201D (decimal 8221)
+)
+Now handling font encoding OMS ...
+... processing UTF-8 mapping file for font encoding OMS
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omsenc.dfu"
+File: omsenc.dfu 2015/09/07 v1.1p UTF-8 support for inputenc
+   defining Unicode char U+00A7 (decimal 167)
+   defining Unicode char U+00B6 (decimal 182)
+   defining Unicode char U+00B7 (decimal 183)
+   defining Unicode char U+2020 (decimal 8224)
+   defining Unicode char U+2021 (decimal 8225)
+   defining Unicode char U+2022 (decimal 8226)
+)
+Now handling font encoding OMX ...
+... no UTF-8 mapping file for font encoding OMX
+Now handling font encoding U ...
+... no UTF-8 mapping file for font encoding U
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+   defining Unicode char U+00A9 (decimal 169)
+   defining Unicode char U+00AA (decimal 170)
+   defining Unicode char U+00AE (decimal 174)
+   defining Unicode char U+00BA (decimal 186)
+   defining Unicode char U+02C6 (decimal 710)
+   defining Unicode char U+02DC (decimal 732)
+   defining Unicode char U+200C (decimal 8204)
+   defining Unicode char U+2026 (decimal 8230)
+   defining Unicode char U+2122 (decimal 8482)
+   defining Unicode char U+2423 (decimal 9251)
+))
+(C:\Users\Alexandre\AppData\Roaming\MiKTeX\2.9\tex\latex\underscore\underscore.
+sty
+Package: underscore 2006/09/13
+LaTeX Info: Redefining \_ on input line 42.
+)
+(C:\Users\Alexandre\AppData\Roaming\MiKTeX\2.9\tex\latex\upquote\upquote.sty
+Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
+tim
+)
+(EjemploAnalisisMicroarrays.aux)
+\openout1 = `EjemploAnalisisMicroarrays.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+
+(C:\Users\Alexandre\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count103
+\scratchdimen=\dimen114
+\scratchbox=\box30
+\nofMPsegments=\count104
+\nofMParguments=\count105
+\everyMPshowfont=\toks18
+\MPscratchCnt=\count106
+\MPscratchDim=\dimen115
+\MPnumerator=\count107
+\makeMPintoPDFobject=\count108
+\everyMPtoPDFconversion=\toks19
+)
+\AtBeginShipoutBox=\box31
+Package hyperref Info: Link coloring OFF on input line 76.
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
+Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
+Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
+)
+\c@section@level=\count109
+)
+LaTeX Info: Redefining \ref on input line 76.
+LaTeX Info: Redefining \pageref on input line 76.
+LaTeX Info: Redefining \nameref on input line 76.
+
+(EjemploAnalisisMicroarrays.out) (EjemploAnalisisMicroarrays.out)
+\@outlinefile=\write3
+\openout3 = `EjemploAnalisisMicroarrays.out'.
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 82.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 82.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 82.
+
+(EjemploAnalisisMicroarrays.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 2.
+
+Overfull \hbox (6.0107pt too wide) in paragraph at lines 13--13
+ [] [][]\OT1/cmr/bx/n/10 Preprocesado: Ex-plo-racion, Con-trol de Cal-i-dad y 
+Nor-mal-izacion[] []  
+ []
+
+
+! Package inputenc Error: Keyboard character used is undefined
+(inputenc)                in inputencoding `utf8'.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.26 ...diferencialmente}{22}{subsubsection.5.1.2}
+                                                  
+You need to provide a definition with \DeclareInputText 
+or \DeclareInputMath before using this key.
+
+
+! Package inputenc Error: Keyboard character used is undefined
+(inputenc)                in inputencoding `utf8'.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.26 ...diferencialmente}{22}{subsubsection.5.1.2}
+                                                  
+You need to provide a definition with \DeclareInputText 
+or \DeclareInputMath before using this key.
+
+[1
+
+{C:/Users/Alexandre/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}])
+\tf@toc=\write4
+\openout4 = `EjemploAnalisisMicroarrays.toc'.
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 100.
+
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 100.
+ [2]
+<images/analysisProcess.png, id=218, 615.29875pt x 485.815pt>
+File: images/analysisProcess.png Graphic file (type png)
+
+<use images/analysisProcess.png>
+Package pdftex.def Info: images/analysisProcess.png used on input line 114.
+(pdftex.def)             Requested size: 256.0748pt x 202.18767pt.
+ [3 <./images/analysisProcess.png (PNG copy)>]
+Overfull \hbox (12.25056pt too wide) in paragraph at lines 135--137
+[]\OT1/cmr/m/n/10 Los genes mas rel-e-vantes de cada com-paracion se re-salta
+ron uti-lizando ``volcano-
+ []
+
+Package color Info: Redefining color shadecolor on input line 157.
+[4]
+Overfull \hbox (14.94806pt too wide) in paragraph at lines 203--204
+\OT1/cmr/m/n/10 artculo de Farmer ([[]]) \OT1/cmr/m/it/10 et alt.\OT1/cmr/m/n
+/10 ([]$\OT1/cmtt/m/n/10 http : / / www . ncbi . nlm . nih . gov / pubmed / 158
+97907$[]\OT1/cmr/m/n/10 )
+ []
+
+Package color Info: Redefining color shadecolor on input line 213.
+[5]
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 215.
+Package color Info: Redefining color shadecolor on input line 232.
+
+Overfull \hbox (134.48195pt too wide) in paragraph at lines 234--234
+[][]\OT1/cmtt/m/it/10 # muestras <- read.csv2(file.path(dataDir, "Asignacion_de
+_muestras_a_grupos.csv"),  head=T)[][] 
+ []
+
+
+Overfull \hbox (3.2331pt too wide) in paragraph at lines 240--240
+[][]\OT1/cmtt/m/it/10 # write.table(alAnalisis, file=file.path(dataDir, "target
+s.txt"), [][] 
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 241
+.
+(C:/PROGRA~1/R/R-33~1.2/share/texmf/tex/latex\omscmtt.fd
+File: omscmtt.fd 
+)
+LaTeX Font Info:    Font shape `OMS/cmtt/m/it' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 241.
+
+Underfull \vbox (badness 10000) detected at line 279
+ []
+
+[6]
+Package color Info: Redefining color shadecolor on input line 285.
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 288--288
+[][]\OT1/cmtt/m/n/10 sampleInfo[] []<-[] []read.AnnotatedDataFrame[][]([][]file
+.path[][](dataDir,[][]"targets.txt"[][]),[][] 
+ []
+
+LaTeX Font Info:    Font shape `OMS/cmtt/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 289.
+
+Overfull \hbox (17.24684pt too wide) in paragraph at lines 291--291
+[][]\OT1/cmtt/m/n/10 rawData[] []<-[] []read.affybatch[][]([][]filenames[][]=[]
+[]file.path[][](celfilesDir,fileNames),[][] 
+ []
+
+
+Overfull \hbox (59.24648pt too wide) in paragraph at lines 297--298
+[]\OT1/cmtt/m/n/10 ## Warning: replacing previous import 'AnnotationDbi::tail' 
+by 'utils::tail'
+ []
+
+
+Overfull \hbox (59.24648pt too wide) in paragraph at lines 299--300
+[]\OT1/cmtt/m/n/10 ## Warning: replacing previous import 'AnnotationDbi::head' 
+by 'utils::head'
+ []
+
+[7]
+Package color Info: Redefining color shadecolor on input line 350.
+ <images/graficplotHist-1.pdf, id=273, 505.89pt x 505.89pt>
+File: images/graficplotHist-1.pdf Graphic file (type pdf)
+
+<use images/graficplotHist-1.pdf>
+Package pdftex.def Info: images/graficplotHist-1.pdf used on input line 351.
+(pdftex.def)             Requested size: 345.0pt x 345.00414pt.
+Package color Info: Redefining color shadecolor on input line 362.
+
+Overfull \hbox (17.24684pt too wide) in paragraph at lines 364--364
+[][]\OT1/cmtt/m/n/10 boxplot[][](rawData,[] []cex.axis[][]=[][]0.6[][],[] []col
+[][]=colores,[] []las[][]=[][]2[][],[] []names[][]=sampleNames,[][] 
+ []
+
+<images/graficboxplot-1.pdf, id=274, 505.89pt x 505.89pt>
+File: images/graficboxplot-1.pdf Graphic file (type pdf)
+
+<use images/graficboxplot-1.pdf>
+Package pdftex.def Info: images/graficboxplot-1.pdf used on input line 368.
+(pdftex.def)             Requested size: 345.0pt x 345.00414pt.
+Package color Info: Redefining color shadecolor on input line 378.
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 380--380
+[][]\OT1/cmtt/m/n/10 plotPCA[] []<-[] []function[] []([] []X[][],[] []labels[][
+]=[][]NULL[][],[] []colors[][]=[][]NULL[][],[] []dataDesc[][]=[][]""[][],[] []s
+cale[][]=[][]FALSE[][])[][] 
+ []
+
+
+Overfull \hbox (95.99615pt too wide) in paragraph at lines 390--390
+[]  []\OT1/cmtt/m/n/10 title[][]([][]paste[][]([][]"Plot of first 2 PCs for exp
+ressions in"[][], dataDesc,[] []sep[][]=[][]" "[][]),[] []cex[][]=[][]0.8[][])[
+][] 
+ []
+
+[8] [9 <./images/graficplotHist-1.pdf>] [10 <./images/graficboxplot-1.pdf>]
+Package color Info: Redefining color shadecolor on input line 399.
+
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 401--401
+[][]\OT1/cmtt/m/n/10 plotPCA[][]([][]exprs[][](rawData),[] []labels[][]=sampleN
+ames,[] []dataDesc[][]=[][]"selected samples"[][])[][] 
+ []
+
+<images/graficplotPCA2D-1.pdf, id=303, 505.89pt x 505.89pt>
+File: images/graficplotPCA2D-1.pdf Graphic file (type pdf)
+
+<use images/graficplotPCA2D-1.pdf>
+Package pdftex.def Info: images/graficplotPCA2D-1.pdf used on input line 404.
+(pdftex.def)             Requested size: 345.0pt x 345.00414pt.
+Package color Info: Redefining color shadecolor on input line 416.
+
+<images/graficdistAnalisis-1.pdf, id=304, 505.89pt x 505.89pt>
+File: images/graficdistAnalisis-1.pdf Graphic file (type pdf)
+
+<use images/graficdistAnalisis-1.pdf>
+Package pdftex.def Info: images/graficdistAnalisis-1.pdf used on input line 422
+.
+(pdftex.def)             Requested size: 345.0pt x 345.00414pt.
+Package color Info: Redefining color shadecolor on input line 438.
+
+<images/graficplotDendro-1.pdf, id=305, 505.89pt x 505.89pt>
+File: images/graficplotDendro-1.pdf Graphic file (type pdf)
+
+<use images/graficplotDendro-1.pdf>
+Package pdftex.def Info: images/graficplotDendro-1.pdf used on input line 439.
+(pdftex.def)             Requested size: 345.0pt x 345.00414pt.
+ [11 <./images/graficplotPCA2D-1.pdf>]
+[12 <./images/graficdistAnalisis-1.pdf>] [13 <./images/graficplotDendro-1.pdf>]
+Package color Info: Redefining color shadecolor on input line 452.
+
+Overfull \hbox (6.74693pt too wide) in paragraph at lines 457--457
+[]                    []\OT1/cmtt/m/n/10 outdir[] []=[] []file.path[][](results
+Dir,[] []"arrayQuality"[][]),[][] 
+ []
+
+
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 462--462
+[]\OT1/cmtt/m/it/10 ## The report will be written into directory 'C:/Users/Alex
+andre/Dropbox
+ []
+
+
+Overfull \hbox (11.99689pt too wide) in paragraph at lines 462--462
+\OT1/cmtt/m/it/10 (VHIR)/SotaCV/Ejemplo_-de_-MDA_-con_-Bioconductor/results/arr
+ayQuality'.[] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 485.
+Package color Info: Redefining color shadecolor on input line 502.
+
+Overfull \hbox (74.99634pt too wide) in paragraph at lines 504--504
+[][]\OT1/cmtt/m/n/10 boxplot[][](eset_rma,[][]main[][]=[][]"RMA"[][],[] []names
+[][]=sampleNames,[] []cex.axis[][]=[][]0.7[][],[] []col[][]=colores,[][]las[][]
+=[][]2[][])[][] 
+ []
+
+<images/graficnormBoxPlot-1.pdf, id=339, 505.89pt x 505.89pt>
+File: images/graficnormBoxPlot-1.pdf Graphic file (type pdf)
+
+<use images/graficnormBoxPlot-1.pdf>
+Package pdftex.def Info: images/graficnormBoxPlot-1.pdf used on input line 507.
+
+(pdftex.def)             Requested size: 345.0pt x 345.00414pt.
+ [14] [15 <./images/graficnormBoxPlot-1.pdf>]
+Package color Info: Redefining color shadecolor on input line 521.
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 525--525
+[][]\OT1/cmtt/m/n/10 plot[][]([][]1[][]:[][]length[][](sdsO), sdsO,[] []main[][
+]=[][]"Global variation over all genes"[][])[][] 
+ []
+
+<images/graficvariancePlot-1.pdf, id=355, 505.89pt x 505.89pt>
+File: images/graficvariancePlot-1.pdf Graphic file (type pdf)
+
+<use images/graficvariancePlot-1.pdf>
+Package pdftex.def Info: images/graficvariancePlot-1.pdf used on input line 528
+.
+(pdftex.def)             Requested size: 345.0pt x 345.00414pt.
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 528--529
+[][] 
+ []
+
+[16 <./images/graficvariancePlot-1.pdf>]
+Package color Info: Redefining color shadecolor on input line 538.
+
+Overfull \hbox (8.94388pt too wide) in paragraph at lines 549--550
+[]\OT1/cmr/m/n/10 La funcion \OT1/cmtt/m/n/10 nsFilter \OT1/cmr/m/n/10 de-vuel
+ve los val-ores fil-tra-dos en un ob-jeto \OT1/cmtt/m/n/10 expressionSet
+ []
+
+Package color Info: Redefining color shadecolor on input line 552.
+[17]
+Package color Info: Redefining color shadecolor on input line 600.
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 602--602
+[][]\OT1/cmtt/m/n/10 shortNames[][]<-[] []paste[][]([][]pData[][](eset_rma)[][]
+$[][]Group,[] []pData[][](eset_rma)[][]$[][]SampleIDs,[][]sep[][]=[][]"."[][])[
+][] 
+ []
+
+
+Overfull \hbox (6.74693pt too wide) in paragraph at lines 603--603
+[][]\OT1/cmtt/m/n/10 sum[][]([][]rownames[][]([][]pData[][](eset_filtered))[][]
+!=[][]colnames[][]([][]exprs[][](eset_filtered)))[][] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 609--609
+[][]\OT1/cmtt/m/n/10 colnames[][]([][]exprs[][](eset_filtered))[][]<-[] []colna
+mes[][]([][]exprs[][](eset_rma))[][]<-[] []shortNames[][] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 613--613
+[]\OT1/cmtt/m/n/10 ## Error in (function (od, vd) : object and replacement valu
+e dimnames
+ []
+
+
+Overfull \hbox (59.24648pt too wide) in paragraph at lines 614--614
+[][]\OT1/cmtt/m/n/10 write.csv2[][]([][]exprs[][](eset_rma),[] []file.path[][](
+resultsDir,[] []"Datos.Normalizados.csv2"[][]))[][] 
+ []
+
+
+Overfull \hbox (137.99579pt too wide) in paragraph at lines 615--615
+[][]\OT1/cmtt/m/n/10 write.csv2[][]([][]exprs[][](eset_filtered),[] []file.path
+[][](resultsDir,[] []"Datos.Normalizados.Filtrados.csv2"[][]))[][] 
+ []
+
+
+Overfull \hbox (90.7462pt too wide) in paragraph at lines 616--616
+[][]\OT1/cmtt/m/n/10 save[][](eset_rma, eset_filtered,[] []file[][]=[][]file.pa
+th[][](resultsDir,[] []"datos.normalizados.Rda"[][]))[][] 
+ []
+
+! Undefined control sequence.
+l.637  \Rpack
+             {genefilter} que calcula los estadísticos de test para cada fi...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[18]
+Package color Info: Redefining color shadecolor on input line 647.
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 675--675
+[]\OT1/cmtt/m/n/10 ##                Sample             Ids SampleIDs Group Apo
+crine.grade[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 675--675
+[]\OT1/cmtt/m/n/10 ## GSM26878.CEL GSM26878 PF14 EnPnT2N1G2      PF14     A    
+          3[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 675--675
+[]\OT1/cmtt/m/n/10 ## GSM26883.CEL GSM26883 PF19 EnPuT4N0Gu      PF19     A    
+          2[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 675--675
+[]\OT1/cmtt/m/n/10 ## GSM26887.CEL GSM26887 PF23 EnPnT2N0G2      PF23     A    
+          3[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 675--675
+[]\OT1/cmtt/m/n/10 ## GSM26903.CEL GSM26903 PF39 EnPuT4N0Gu      PF39     A    
+          3[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 675--675
+[]\OT1/cmtt/m/n/10 ## GSM26910.CEL GSM26910 PF46 EnPnT4N1G3      PF46     A    
+          3[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 675--675
+[]\OT1/cmtt/m/n/10 ## GSM26888.CEL GSM26888 PF24 EnPnTiN0G3      PF24     B    
+          2[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 675--675
+[]\OT1/cmtt/m/n/10 ## GSM26889.CEL GSM26889 PF25 EnPnT3N2G2      PF25     B    
+          1[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 675--675
+[]\OT1/cmtt/m/n/10 ## GSM26892.CEL GSM26892 PF28 EnPnT2N1G3      PF28     B    
+          2[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 675--675
+[]\OT1/cmtt/m/n/10 ## GSM26898.CEL GSM26898 PF34 EnPnT3N1G3      PF34     B    
+          1[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 675--675
+[]\OT1/cmtt/m/n/10 ## GSM26906.CEL GSM26906 PF42 EnPnT2N2G3      PF42     B    
+         na[] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 688.
+Package color Info: Redefining color shadecolor on input line 710.
+[19]
+Package color Info: Redefining color shadecolor on input line 737.
+ <images/graficvolcano1-1.pdf, id=380, 505.89pt x 505.89pt>
+File: images/graficvolcano1-1.pdf Graphic file (type pdf)
+
+<use images/graficvolcano1-1.pdf>
+Package pdftex.def Info: images/graficvolcano1-1.pdf used on input line 746.
+(pdftex.def)             Requested size: 345.0pt x 345.00414pt.
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 746--747
+[][] 
+ []
+
+[20]
+Overfull \hbox (8.445pt too wide) in paragraph at lines 771--772
+[]\OT1/cmr/m/n/10 En este ejem-plo y con fines ilus-tra-tivos aceptare-mos que 
+los p--valores obtenidos
+ []
+
+
+! Package inputenc Error: Keyboard character used is undefined
+(inputenc)                in inputencoding `utf8'.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.782 ...nes [más] expresados diferencialmente}
+                                                  
+You need to provide a definition with \DeclareInputText 
+or \DeclareInputMath before using this key.
+
+
+! Package inputenc Error: Keyboard character used is undefined
+(inputenc)                in inputencoding `utf8'.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.782 ...nes [más] expresados diferencialmente}
+                                                  
+You need to provide a definition with \DeclareInputText 
+or \DeclareInputMath before using this key.
+
+[21 <./images/graficvolcano1-1.pdf>]
+Package color Info: Redefining color shadecolor on input line 787.
+
+! Undefined control sequence.
+l.815 ...ajustar los p--valores. El paquete \Rpack
+                                                  {multtest} proporciona fun...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Package color Info: Redefining color shadecolor on input line 818.
+
+Overfull \hbox (45.23273pt too wide) in paragraph at lines 821--821
+[][]\OT1/cmtt/m/it/10 #procs <- c("Bonferroni","Holm","Hochberg","SidakSS","Sid
+akSD","BH", "BY")[][] 
+ []
+
+[22]
+Package color Info: Redefining color shadecolor on input line 852.
+ [23]
+Package color Info: Redefining color shadecolor on input line 898.
+Package color Info: Redefining color shadecolor on input line 933.
+ [24]
+Overfull \hbox (1.1388pt too wide) in paragraph at lines 965--967
+[]\OT1/cmr/m/n/10 El analisis pro-por-ciona los es-tadsticos de test ha-bit-
+uales como \OT1/cmtt/m/n/10 Fold--change
+ []
+
+Package color Info: Redefining color shadecolor on input line 976.
+
+Overfull \hbox (95.99615pt too wide) in paragraph at lines 978--978
+[][]\OT1/cmtt/m/n/10 topTab_AvsB[] []<-[] []topTable[] [](fit.main,[] []number[
+][]=[][]nrow[][](fit.main),[] []coef[][]=[][]"AvsB"[][],[] []adjust[][]=[][]"fd
+r"[][])[][] 
+ []
+
+
+Overfull \hbox (95.99615pt too wide) in paragraph at lines 979--979
+[][]\OT1/cmtt/m/n/10 topTab_AvsL[] []<-[] []topTable[] [](fit.main,[] []number[
+][]=[][]nrow[][](fit.main),[] []coef[][]=[][]"AvsL"[][],[] []adjust[][]=[][]"fd
+r"[][])[][] 
+ []
+
+
+Overfull \hbox (106.49606pt too wide) in paragraph at lines 980--980
+[][]\OT1/cmtt/m/n/10 topTab_BvsL[]  []<-[] []topTable[] [](fit.main,[] []number
+[][]=[][]nrow[][](fit.main) ,[] []coef[][]=[][]"BvsL"[][],[] []adjust[][]=[][]"
+fdr"[][])[][] 
+ []
+
+
+Overfull \hbox (1.16307pt too wide) in paragraph at lines 1007--1007
+[]\OT1/cmr/bx/n/14.4 Post-procesado de las lis-tas de genes obtenidas 
+ []
+
+
+Overfull \hbox (7.83392pt too wide) in paragraph at lines 1011--1012
+[]\OT1/cmr/m/n/10 Entre es-tas ex-plo-raciones --que pode-mos lla-mar gener-i-c
+a-mente ``post-procesado
+ []
+
+[25]
+Package color Info: Redefining color shadecolor on input line 1042.
+Package color Info: Redefining color shadecolor on input line 1060.
+Package color Info: Redefining color shadecolor on input line 1074.
+
+Overfull \hbox (11.99689pt too wide) in paragraph at lines 1076--1076
+[][]\OT1/cmtt/m/n/10 vennDiagram[] [](res.selected[,[][]1[][]:[][]3[][]],[] []m
+ain[][]=[][]"Genes in common #1"[][],[] []cex[][]=[][]0.9[][])[][] 
+ []
+
+<images/graficvenn1-1.pdf, id=416, 505.89pt x 505.89pt>
+File: images/graficvenn1-1.pdf Graphic file (type pdf)
+
+<use images/graficvenn1-1.pdf>
+Package pdftex.def Info: images/graficvenn1-1.pdf used on input line 1079.
+(pdftex.def)             Requested size: 345.0pt x 345.00414pt.
+ [26] [27 <./images/graficvenn1-1.pdf>]
+Package color Info: Redefining color shadecolor on input line 1094.
+ [28]
+Package color Info: Redefining color shadecolor on input line 1166.
+Package color Info: Redefining color shadecolor on input line 1187.
+
+Overfull \hbox (74.99634pt too wide) in paragraph at lines 1191--1191
+[][]\OT1/cmtt/m/n/10 listOfTables[] []<-[] []list[][]([][]AvsB[] []= topTab_Avs
+B,[] []AvsL[] []= topTab_AvsL,[] []BvsL[] []= topTab_BvsL)[][] 
+ []
+
+
+Overfull \hbox (13.733pt too wide) in paragraph at lines 1198--1198
+[]  []\OT1/cmtt/m/it/10 # Los convertimos a identificadores Entrez ("EG") y a G
+ene Symbols[][] 
+ []
+
+
+Overfull \hbox (45.23273pt too wide) in paragraph at lines 1203--1203
+[]  []\OT1/cmtt/m/it/10 # Preparamos el data.frame con el que se creara el arc
+hivo de resultados[][] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 1204--1204
+[]  []\OT1/cmtt/m/n/10 otherNames[] []=[] []data.frame[][](selectedIDs, simbols
+, topTab[whichGenes,[][]-[][]1[][]])[][] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 1205--1205
+[]  []\OT1/cmtt/m/n/10 names[][](otherNames)[] []=[] []c[][]([][]"Affy ID"[][],
+[] []"Gene Symbol"[][],[] []colnames[][](topTab)[[][]-[][]1[][]])[][] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 1210--1210
+[]           []\OT1/cmtt/m/n/10 paste[][]([][]"Selected Genes in comparison "[]
+[],comparison,[][]".html"[][],[] []sep[][]=[][]""[][])) ,[][] 
+ []
+
+
+Overfull \hbox (101.24611pt too wide) in paragraph at lines 1211--1211
+[]           []\OT1/cmtt/m/n/10 title[] []=[] []paste[][]([][]"Diff. expressed 
+genes in comparison "[][], comparison,[] []sep[][]=[][]""[][]),[][] 
+ []
+
+[29]
+Package color Info: Redefining color shadecolor on input line 1225.
+
+Overfull \hbox (6.74693pt too wide) in paragraph at lines 1230--1230
+[][]\OT1/cmtt/m/n/10 SymbolsA[] []<-[] []getSYMBOL[] []([][]rownames[][](topTab
+_AvsB),[] []annotation[][](eset_rma))[][] 
+ []
+
+
+Overfull \hbox (237.74492pt too wide) in paragraph at lines 1231--1231
+[][]\OT1/cmtt/m/n/10 ExpressAndTop_AvsB[] []<-[] []cbind[][](SymbolsA, EntrezsA
+, topTab_AvsB,[] []exprs[][](eset_filtered)[[][]rownames[][](topTab_AvsB),[] []
+1[][]:[][]10[][]])[][] 
+ []
+
+
+Overfull \hbox (74.99634pt too wide) in paragraph at lines 1232--1232
+[][]\OT1/cmtt/m/n/10 write.csv2[][](ExpressAndTop_AvsB,[] []file.path[][](resul
+tsDir,[] []"ExpressAndTop_AvsB.csv2"[][]))[][] 
+ []
+
+
+Overfull \hbox (6.74693pt too wide) in paragraph at lines 1235--1235
+[][]\OT1/cmtt/m/n/10 SymbolsA[] []<-[] []getSYMBOL[] []([][]rownames[][](topTab
+_AvsL),[] []annotation[][](eset_rma))[][] 
+ []
+
+
+Overfull \hbox (279.74455pt too wide) in paragraph at lines 1236--1236
+[][]\OT1/cmtt/m/n/10 ExpressAndTop_AvsL[] []<-[] []cbind[][](SymbolsA, EntrezsA
+, topTab_AvsL,[] []exprs[][](eset_filtered)[[][]rownames[][](topTab_AvsL),[] []
+c[][]([][]1[][]:[][]5[][],[][]11[][]:[][]15[][])])[][] 
+ []
+
+
+Overfull \hbox (74.99634pt too wide) in paragraph at lines 1237--1237
+[][]\OT1/cmtt/m/n/10 write.csv2[][](ExpressAndTop_AvsL,[] []file.path[][](resul
+tsDir,[] []"ExpressAndTop_AvsL.csv2"[][]))[][] 
+ []
+
+
+Overfull \hbox (6.74693pt too wide) in paragraph at lines 1240--1240
+[][]\OT1/cmtt/m/n/10 SymbolsA[] []<-[] []getSYMBOL[] []([][]rownames[][](topTab
+_BvsL),[] []annotation[][](eset_rma))[][] 
+ []
+
+
+Overfull \hbox (237.74492pt too wide) in paragraph at lines 1241--1241
+[][]\OT1/cmtt/m/n/10 ExpressAndTop_BvsL[] []<-[] []cbind[][](SymbolsA, EntrezsA
+, topTab_BvsL,[] []exprs[][](eset_filtered)[[][]rownames[][](topTab_BvsL),[] []
+6[][]:[][]15[][]])[][] 
+ []
+
+
+Overfull \hbox (74.99634pt too wide) in paragraph at lines 1242--1242
+[][]\OT1/cmtt/m/n/10 write.csv2[][](ExpressAndTop_BvsL,[] []file.path[][](resul
+tsDir,[] []"ExpressAndTop_BvsL.csv2"[][]))[][] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 1263.
+[30]
+Package color Info: Redefining color shadecolor on input line 1289.
+
+Overfull \hbox (64.49643pt too wide) in paragraph at lines 1292--1292
+[][]\OT1/cmtt/m/n/10 heatmap[][](exprs2cluster,[] []col[][]=[][]rainbow[][]([][
+]100[][]),[] []ColSideColors[][]=grupColors,[] []cexCol[][]=[][]0.9[][])[][] 
+ []
+
+<images/graficplotHeatMap1-1.pdf, id=444, 505.89pt x 505.89pt>
+File: images/graficplotHeatMap1-1.pdf Graphic file (type pdf)
+
+<use images/graficplotHeatMap1-1.pdf>
+Package pdftex.def Info: images/graficplotHeatMap1-1.pdf used on input line 129
+5.
+(pdftex.def)             Requested size: 345.0pt x 345.00414pt.
+Package color Info: Redefining color shadecolor on input line 1309.
+
+<images/graficplotHeatMap2-1.pdf, id=445, 505.89pt x 505.89pt>
+File: images/graficplotHeatMap2-1.pdf Graphic file (type pdf)
+
+<use images/graficplotHeatMap2-1.pdf>
+Package pdftex.def Info: images/graficplotHeatMap2-1.pdf used on input line 131
+9.
+(pdftex.def)             Requested size: 345.0pt x 345.00414pt.
+Package color Info: Redefining color shadecolor on input line 1337.
+
+Overfull \hbox (74.99634pt too wide) in paragraph at lines 1340--1340
+[][]\OT1/cmtt/m/n/10 listOfTables[] []<-[] []list[][]([][]AvsB[] []= topTab_Avs
+B,[] []AvsL[] []= topTab_AvsL,[] []BvsL[] []= topTab_BvsL)[][] 
+ []
+
+
+Overfull \hbox (76.73245pt too wide) in paragraph at lines 1344--1344
+[]  []\OT1/cmtt/m/it/10 # Definimos el universo de genes: todos los que se han 
+incluido en el analisis[][] 
+ []
+
+
+Overfull \hbox (50.48268pt too wide) in paragraph at lines 1345--1345
+[]  []\OT1/cmtt/m/it/10 # EL programa trabaja con identificadores "entrez" y no
+ admite duplicados[][] 
+ []
+
+
+Overfull \hbox (50.48268pt too wide) in paragraph at lines 1351--1351
+[]  []\OT1/cmtt/m/it/10 # por lo que es habitual basarse en p-valores sin ajust
+ar para incluirlos[][] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 1354--1354
+[]  []\OT1/cmtt/m/n/10 geneIds[] []<-[]   []unique[][]([][]getEG[][]([][]rownam
+es[][](topTab)[whichGenes],[][]"hgu133a.db"[][]))[][] 
+ []
+
+
+Overfull \hbox (59.24648pt too wide) in paragraph at lines 1378--1378
+[]  []\OT1/cmtt/m/n/10 htmlReport[][](GOhyper,[] []file[] []= GOfilename,[] []s
+ummary.args[][]=[][]list[][]([][]"htmlLinks"[][]=[][]TRUE[][]))[][] 
+ []
+
+
+Overfull \hbox (80.24629pt too wide) in paragraph at lines 1379--1379
+[]  []\OT1/cmtt/m/n/10 htmlReport[][](KEGGhyper,[] []file[] []= KEGGfilename,[]
+ []summary.args[][]=[][]list[][]([][]"htmlLinks"[][]=[][]TRUE[][]))[][] 
+ []
+
+[31] [32 <./images/graficplotHeatMap1-1.pdf>] [33 <./images/graficplotHeatMap2-
+1.pdf>] [34]
+Package color Info: Redefining color shadecolor on input line 1405.
+
+Overfull \hbox (17.24684pt too wide) in paragraph at lines 1431--1431
+[]  []\OT1/cmtt/m/n/10 gsSymbol[[[][]colnames[][](geneSets[i])]][] []<-[] []uni
+que[][](gsSymb[[][]![][]is.na[][](gsSymb)])[][] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 1440.
+
+Overfull \hbox (85.49625pt too wide) in paragraph at lines 1443--1443
+[][]\OT1/cmtt/m/n/10 esetUnique[] []<-[] []featureFilter[][](eset_rma,[] []requ
+ire.entrez[][]=[][]TRUE[][],[] []remove.dupEntrez[][]=[][]FALSE[][])[][] 
+ []
+
+
+Overfull \hbox (80.24629pt too wide) in paragraph at lines 1450--1450
+[][]\OT1/cmtt/m/n/10 esetUnique[] []<-[] []featureFilter[][](eset_rma,[] []requ
+ire.entrez[][]=[][]TRUE[][],[] []remove.dupEntrez[][]=[][]TRUE[][])[][] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 1483--1483
+[]\OT1/cmtt/m/n/10 ##                Sample             Ids SampleIDs Group Apo
+crine.grade[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 1483--1483
+[]\OT1/cmtt/m/n/10 ## GSM26878.CEL GSM26878 PF14 EnPnT2N1G2      PF14     A    
+          3[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 1483--1483
+[]\OT1/cmtt/m/n/10 ## GSM26883.CEL GSM26883 PF19 EnPuT4N0Gu      PF19     A    
+          2[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 1483--1483
+[]\OT1/cmtt/m/n/10 ## GSM26887.CEL GSM26887 PF23 EnPnT2N0G2      PF23     A    
+          3[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 1483--1483
+[]\OT1/cmtt/m/n/10 ## GSM26903.CEL GSM26903 PF39 EnPuT4N0Gu      PF39     A    
+          3[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 1483--1483
+[]\OT1/cmtt/m/n/10 ## GSM26910.CEL GSM26910 PF46 EnPnT4N1G3      PF46     A    
+          3[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 1483--1483
+[]\OT1/cmtt/m/n/10 ## GSM26888.CEL GSM26888 PF24 EnPnTiN0G3      PF24     B    
+          2[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 1483--1483
+[]\OT1/cmtt/m/n/10 ## GSM26889.CEL GSM26889 PF25 EnPnT3N2G2      PF25     B    
+          1[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 1483--1483
+[]\OT1/cmtt/m/n/10 ## GSM26892.CEL GSM26892 PF28 EnPnT2N1G3      PF28     B    
+          2[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 1483--1483
+[]\OT1/cmtt/m/n/10 ## GSM26898.CEL GSM26898 PF34 EnPnT3N1G3      PF34     B    
+          1[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 1483--1483
+[]\OT1/cmtt/m/n/10 ## GSM26906.CEL GSM26906 PF42 EnPnT2N2G3      PF42     B    
+         na[] 
+ []
+
+[35]
+Package color Info: Redefining color shadecolor on input line 1496.
+
+Overfull \hbox (206.2452pt too wide) in paragraph at lines 1499--1499
+[][]\OT1/cmtt/m/n/10 GSA.obj[][]<-[][]GSA[][](xAB, yAB,[] []genenames[][]=entre
+zs,[] []genesets[][]=gsEntrez,[]  []resp.type[][]=[][]"Two class unpaired"[][],
+[] []nperms[][]=[][]100[][])[][] 
+ []
+
+[36]
+Package color Info: Redefining color shadecolor on input line 1543.
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 1545--1545
+[][]\OT1/cmtt/m/n/10 geneset.obj[] []<-[] []GSA.read.gmt[][]([][]file.path[][](
+dataDir,[][]"c2.cp.kegg.v5.1.entrez.gmt"[][]))[][] 
+ []
+
+
+Overfull \hbox (2038.47922pt too wide) in paragraph at lines 1733--1733
+[]\OT1/cmtt/m/n/10 ## 123456789101112131415161718192021222324252627282930313233
+3435363738394041424344454647484950515253545556575859606162636465666768697071727
+3747576777879808182838485868788899091929394959697989910010110210310410510610710
+8109110111112113114115116117118119120121122123124125126127128129130131132133134
+1351361371381391401411421431441451461471481491501511521531541551561571581591601
+611621631641651661671681691701711721731741751761771781791801811821831841851861[
+] 
+ []
+
+
+Overfull \hbox (284.9945pt too wide) in paragraph at lines 1735--1735
+[][]\OT1/cmtt/m/n/10 GSA.obj2[] []<-[] []GSA[][](xAB, yAB,[] []genenames[][]=en
+trezs,[] []genesets[][]=geneset.obj[][]$[][]genesets,[]  []resp.type[][]=[][]"T
+wo class unpaired"[][],[] []nperms[][]=[][]100[][])[][] 
+ []
+
+
+Overfull \hbox (48.74657pt too wide) in paragraph at lines 1750--1750
+[][]\OT1/cmtt/m/n/10 GSA.listsets[] [](GSA.obj2,[] []geneset.names[][]=geneset.
+obj[][]$[][]geneset.names,[] []FDRcut[][]=[][].5[][])[][] 
+ []
+
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 1790--1790
+[]\OT1/cmtt/m/n/10 ##  [7,] "11"     "KEGG_STEROID_HORMONE" "-0.7588" "0.01"  "
+0.178"[] 
+ []
+
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 1790--1790
+[]\OT1/cmtt/m/n/10 ##  [8,] "30"     "KEGG_STARCH_AND_SUCR" "-0.3887" "0.01"  "
+0.178"[] 
+ []
+
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 1790--1790
+[]\OT1/cmtt/m/n/10 ##  [9,] "67"     "KEGG_METABOLISM_OF_X" "-0.6237" "0.01"  "
+0.178"[] 
+ []
+
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 1790--1790
+[]\OT1/cmtt/m/n/10 ## [10,] "68"     "KEGG_DRUG_METABOLISM" "-0.5961" "0.01"  "
+0.178"[] 
+ []
+
+
+Overfull \hbox (6.74693pt too wide) in paragraph at lines 1790--1790
+[]\OT1/cmtt/m/n/10 ## [11,] "62"     "KEGG_TERPENOID_BACKB" "-0.7314" "0.02"  "
+0.2967"[] 
+ []
+
+
+Overfull \hbox (6.74693pt too wide) in paragraph at lines 1790--1790
+[]\OT1/cmtt/m/n/10 ## [12,] "102"    "KEGG_MTOR_SIGNALING_" "-0.3444" "0.02"  "
+0.2967"[] 
+ []
+
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 1790--1790
+[]\OT1/cmtt/m/n/10 ## [13,] "60"     "KEGG_RETINOL_METABOL" "-0.5196" "0.03"  "
+0.356"[] 
+ []
+
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 1790--1790
+[]\OT1/cmtt/m/n/10 ## [14,] "87"     "KEGG_ERBB_SIGNALING_" "-0.237"  "0.03"  "
+0.356"[] 
+ []
+
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 1790--1790
+[]\OT1/cmtt/m/n/10 ## [15,] "10"     "KEGG_PRIMARY_BILE_AC" "-0.5234" "0.04"  "
+0.356"[] 
+ []
+
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 1790--1790
+[]\OT1/cmtt/m/n/10 ## [16,] "29"     "KEGG_GLUTATHIONE_MET" "-0.4147" "0.04"  "
+0.356"[] 
+ []
+
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 1790--1790
+[]\OT1/cmtt/m/n/10 ## [17,] "39"     "KEGG_GLYCEROLIPID_ME" "-0.4147" "0.04"  "
+0.356"[] 
+ []
+
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 1790--1790
+[]\OT1/cmtt/m/n/10 ## [18,] "91"     "KEGG_PHOSPHATIDYLINO" "-0.2111" "0.04"  "
+0.356"[] 
+ []
+
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 1790--1790
+[]\OT1/cmtt/m/n/10 ## [19,] "101"    "KEGG_PEROXISOME"      "-0.7756" "0.04"  "
+0.356"[] 
+ []
+
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 1790--1790
+[]\OT1/cmtt/m/n/10 ## [20,] "166"    "KEGG_ENDOMETRIAL_CAN" "-0.3821" "0.04"  "
+0.356"[] 
+ []
+
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 1790--1790
+[]\OT1/cmtt/m/n/10 ## [21,] "16"     "KEGG_GLYCINE_SERINE_" "-0.3191" "0.05"  "
+0.387"[] 
+ []
+
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 1790--1790
+[]\OT1/cmtt/m/n/10 ## [22,] "80"     "KEGG_PPAR_SIGNALING_" "-0.46"   "0.05"  "
+0.387"[] 
+ []
+
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 1790--1790
+[]\OT1/cmtt/m/n/10 ## [23,] "146"    "KEGG_ADIPOCYTOKINE_S" "-0.2582" "0.05"  "
+0.387"[] 
+ []
+
+[37]
+Underfull \vbox (badness 10000) detected at line 1791
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1791
+ []
+
+[38]
+Underfull \vbox (badness 10000) detected at line 1791
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1791
+ []
+
+[39]
+Underfull \vbox (badness 10000) detected at line 1791
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1791
+ []
+
+[40] [41] [42] (EjemploAnalisisMicroarrays.bbl [43])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1842.
+ [44]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1842.
+
+(EjemploAnalisisMicroarrays.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1842.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1842.
+
+Package rerunfilecheck Info: File `EjemploAnalisisMicroarrays.out' has not chan
+ged.
+(rerunfilecheck)             Checksum: 1EE0E1A1FDB9CEA803A4D4D931457C26;3637.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1842.
+ ) 
+Here is how much of TeX's memory you used:
+ 5701 strings out of 493634
+ 84291 string characters out of 3141302
+ 191257 words of memory out of 3000000
+ 8898 multiletter control sequences out of 15000+200000
+ 8577 words of font info for 31 fonts, out of 3000000 for 9000
+ 1025 hyphenation exceptions out of 8191
+ 29i,8n,31p,840b,428s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
+<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C
+:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmitt10.pfb><C:
+/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/P
+rogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Prog
+ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program
+ Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Fi
+les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files 
+(x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files (x86
+)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files (x86)/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files (x86)/MiKTeX 
+2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files (x86)/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on EjemploAnalisisMicroarrays.pdf (44 pages, 1785626 bytes).
+PDF statistics:
+ 607 PDF objects out of 1000 (max. 8388607)
+ 116 named destinations out of 1000 (max. 500000)
+ 373 words of extra memory for PDF output out of 10000 (max. 10000000)
+

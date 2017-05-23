@@ -66,8 +66,8 @@
 \newcommand{\Rcode}[1]{{\texttt{#1}}}
 \newcommand{\Rfun}[1]{{\texttt{#1}}}
 
-\title{Genómica funcional y análisis de microarrays\\
-  Primera PEC : Selección de genes expresados diferencialmente}
+\title{Análisis de datos de microarrays con R y Bioconductor\\
+Selección de genes diferencialmente expresados}
 
 \author{Alex Sánchez}
 
@@ -253,7 +253,7 @@ Una forma cómoda de leer los datos y, al mismo tiempo, asignar a cada muestra l
 
 
 {\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: xtable}}\end{kframe}% latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Tue May 23 14:17:07 2017
+% Wed May 24 00:33:25 2017
 \begin{longtable}{rllll}
   \hline
  & Sample & Ids & SampleIDs & Group \\ 
@@ -452,7 +452,9 @@ El paquete \Rpackage{arrayQualitMetrics} encapsula todos los análisis anteriore
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{stopifnot}\hlstd{(}\hlkwd{require}\hlstd{(arrayQualityMetrics))}
-\hlkwd{arrayQualityMetrics}\hlstd{(rawData,} \hlkwc{outdir} \hlstd{=} \hlkwd{file.path}\hlstd{(resultsDir,} \hlstr{"arrayQuality"}\hlstd{),}
+\hlkwd{arrayQualityMetrics}\hlstd{(rawData,}
+                    \hlkwc{intgroup} \hlstd{=} \hlstr{"Group"}\hlstd{,}
+                    \hlkwc{outdir} \hlstd{=} \hlkwd{file.path}\hlstd{(resultsDir,} \hlstr{"arrayQuality"}\hlstd{),}
                     \hlkwc{force}\hlstd{=}\hlnum{TRUE}\hlstd{)}
 \end{alltt}
 
@@ -510,6 +512,23 @@ Un boxplot de los valores normalizados muestra que los valores han quedado clara
 \end{figure}
 
 \subsubsection{Filtraje}
+
+La selección de genes diferencialmente expresados se ve afectada por el número de genes sobre la que la hacemos. Cuántos más son, mayor será el ajuste necesario de p-valores (como se verá a continuación) lo que conllevará que podamos acabar descartando erróneamente más genes.
+
+Por este motivo interesa reducir el total de genes que examinamos, es decir si podemos descartar los genes que, razonablemente no van a estar diferencialmente expresados podremos reducir el total sin apenas riesgo de descartar genes interesantes. Para ello podemos fijarnos, por ejemplo en la variabilidad global de cada gen, es decir sin tener en cuenta los grupos. La idea será que si un gen está diferencialmente expresado es preciso que haya una cierta diferencia entre los grupos, y por lo tanto la varianza global del gen será mayor que la de aquellos que no presentan expresión diferencial. Si hacemos un gráfico de la variabilidad de todos los genes, deberíamos poder diferenciar los genes que varian más (es decir que presentan expresión diferencial) de los que no la presentan. 
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{sds} \hlkwb{<-} \hlkwd{apply} \hlstd{(}\hlkwd{exprs}\hlstd{(eset_rma),} \hlnum{1}\hlstd{, sd)}
+\hlstd{sdsO}\hlkwb{<-} \hlkwd{sort}\hlstd{(sds)}
+\hlkwd{plot}\hlstd{(}\hlnum{1}\hlopt{:}\hlkwd{length}\hlstd{(sdsO), sdsO,} \hlkwc{main}\hlstd{=}\hlstr{"Global variation over all genes"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{images/graficvariancePlot-1} 
+
+\end{knitrout}
+
 
 El filtraje \emph{no específico} permite eliminar los genes que varían poco entre condiciones o que deseamos quitar por otras razones como por ejemplo que no disponemos de anotación para ellos. La función \texttt{nsFilter} permite eliminar los genes que, o bien varían poco, o bien no se dispone de anotación para ellos.
 
@@ -715,7 +734,15 @@ a ser considerados diferencialmente expresados.
 Un gráfico muy útil para hacerse una idea de si hay muchos o pocos genes cambiados es el \emph{volcano plot} que representa la significación de cada gen, medida por \emph{``menos el logaritmo del p--valor''} frente al cambio de expresión medido por el \texttt{fold--change} o diferencia de medias, que puede considerarse equivalente a una expresión relativa siempre que los datos se encuentren en una escala logarítmica (``el logaritmo del cociente es la diferencia de logaritmos'').
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{x}\hlkwb{<-}\hlstd{ranked}\hlopt{$}\hlstd{dm; y}\hlkwb{<-}\hlopt{-}\hlkwd{log}\hlstd{(ranked}\hlopt{$}\hlstd{p.value)}
+\hlkwd{plot}\hlstd{(x, y,} \hlkwc{xlab}\hlstd{=}\hlstr{"Fold Change"}\hlstd{,} \hlkwc{ylab} \hlstd{=}\hlstr{"-logPval"}\hlstd{,}
+     \hlkwc{main}\hlstd{=}\hlstr{"Volcano plot\textbackslash{}nA vs B"}\hlstd{)}
+\hlkwd{abline}\hlstd{(}\hlkwc{v}\hlstd{=}\hlopt{-}\hlnum{1}\hlstd{);}\hlkwd{abline}\hlstd{(}\hlkwc{v}\hlstd{=}\hlnum{1}\hlstd{);}
+\hlkwd{text} \hlstd{(x[}\hlnum{1}\hlopt{:}\hlnum{10}\hlstd{], y[}\hlnum{1}\hlopt{:}\hlnum{10}\hlstd{],}\hlkwd{rownames}\hlstd{(ranked)[}\hlnum{1}\hlopt{:}\hlnum{10}\hlstd{],} \hlkwc{cex}\hlstd{=}\hlnum{0.7}\hlstd{)}
+\end{alltt}
+\end{kframe}
 \includegraphics[width=\maxwidth]{images/graficvolcano1-1} 
 
 \end{knitrout}
@@ -1491,14 +1518,16 @@ Una vez recopilados los componentes necesarios se ejecuta la llamada al método 
 ## [1] 0.5
 ## 
 ## $negative
-##      Gene_set Gene_set_name Score     p-value FDR
-## [1,] "17"     "KT1.1"       "-0.8933" "0"     "0"
+##      Gene_set Gene_set_name Score     p-value FDR    
+## [1,] "17"     "KT1.1"       "-0.8933" "0"     "0"    
+## [2,] "16"     "KT2"         "-0.6307" "0.05"  "0.325"
+## [3,] "18"     "KT2.1"       "-0.6559" "0.09"  "0.39" 
 ## 
 ## $positive
 ##      Gene_set Gene_set_name Score p-value FDR
 ## 
 ## $nsets.neg
-## [1] 1
+## [1] 3
 ## 
 ## $nsets.pos
 ## [1] 0
@@ -1728,54 +1757,36 @@ En este ejemplo se utiliza el conjunto de grupos de genes definidos por los path
 ##       Gene_set Gene_set_name          Score     p-value FDR     
 ##  [1,] "4"      "KEGG_PENTOSE_AND_GLU" "-1.0474" "0"     "0"     
 ##  [2,] "7"      "KEGG_ASCORBATE_AND_A" "-1.1019" "0"     "0"     
-##  [3,] "11"     "KEGG_STEROID_HORMONE" "-0.7588" "0"     "0"     
-##  [4,] "23"     "KEGG_TYROSINE_METABO" "-0.6995" "0"     "0"     
-##  [5,] "33"     "KEGG_O_GLYCAN_BIOSYN" "-0.6857" "0"     "0"     
-##  [6,] "69"     "KEGG_DRUG_METABOLISM" "-0.5306" "0"     "0"     
-##  [7,] "142"    "KEGG_INSULIN_SIGNALI" "-0.3796" "0"     "0"     
-##  [8,] "166"    "KEGG_ENDOMETRIAL_CAN" "-0.3821" "0"     "0"     
-##  [9,] "29"     "KEGG_GLUTATHIONE_MET" "-0.4147" "0.01"  "0.1369"
-## [10,] "67"     "KEGG_METABOLISM_OF_X" "-0.6237" "0.01"  "0.1369"
-## [11,] "68"     "KEGG_DRUG_METABOLISM" "-0.5961" "0.01"  "0.1369"
-## [12,] "87"     "KEGG_ERBB_SIGNALING_" "-0.237"  "0.01"  "0.1369"
-## [13,] "176"    "KEGG_NON_SMALL_CELL_" "-0.2345" "0.01"  "0.1369"
-## [14,] "24"     "KEGG_PHENYLALANINE_M" "-0.7359" "0.02"  "0.2225"
-## [15,] "101"    "KEGG_PEROXISOME"      "-0.7756" "0.02"  "0.2225"
-## [16,] "146"    "KEGG_ADIPOCYTOKINE_S" "-0.2582" "0.02"  "0.2225"
-## [17,] "39"     "KEGG_GLYCEROLIPID_ME" "-0.4147" "0.03"  "0.2811"
-## [18,] "60"     "KEGG_RETINOL_METABOL" "-0.5196" "0.03"  "0.2811"
-## [19,] "80"     "KEGG_PPAR_SIGNALING_" "-0.46"   "0.03"  "0.2811"
-## [20,] "22"     "KEGG_HISTIDINE_METAB" "-0.3964" "0.04"  "0.339" 
-## [21,] "91"     "KEGG_PHOSPHATIDYLINO" "-0.2111" "0.04"  "0.339" 
-## [22,] "9"      "KEGG_STEROID_BIOSYNT" "-0.7575" "0.05"  "0.3708"
-## [23,] "10"     "KEGG_PRIMARY_BILE_AC" "-0.5234" "0.05"  "0.3708"
-## [24,] "102"    "KEGG_MTOR_SIGNALING_" "-0.3444" "0.05"  "0.3708"
-## [25,] "30"     "KEGG_STARCH_AND_SUCR" "-0.3887" "0.06"  "0.4108"
-## [26,] "62"     "KEGG_TERPENOID_BACKB" "-0.7314" "0.06"  "0.4108"
-## [27,] "16"     "KEGG_GLYCINE_SERINE_" "-0.3191" "0.07"  "0.4297"
-## [28,] "34"     "KEGG_AMINO_SUGAR_AND" "-0.4474" "0.07"  "0.4297"
-## [29,] "54"     "KEGG_BUTANOATE_METAB" "-0.5319" "0.07"  "0.4297"
-## [30,] "45"     "KEGG_LINOLEIC_ACID_M" "-0.4436" "0.08"  "0.4315"
-## [31,] "46"     "KEGG_ALPHA_LINOLENIC" "-0.4077" "0.08"  "0.4315"
-## [32,] "70"     "KEGG_BIOSYNTHESIS_OF" "-0.3878" "0.08"  "0.4315"
-## [33,] "147"    "KEGG_TYPE_II_DIABETE" "-0.2391" "0.08"  "0.4315"
-## [34,] "5"      "KEGG_FRUCTOSE_AND_MA" "-0.4203" "0.09"  "0.4712"
-## [35,] "1"      "KEGG_GLYCOLYSIS_GLUC" "-0.2577" "0.1"   "0.4811"
-## [36,] "61"     "KEGG_PORPHYRIN_AND_C" "-0.2583" "0.1"   "0.4811"
-## [37,] "151"    "KEGG_VASOPRESSIN_REG" "-0.268"  "0.1"   "0.4811"
+##  [3,] "23"     "KEGG_TYROSINE_METABO" "-0.6995" "0"     "0"     
+##  [4,] "33"     "KEGG_O_GLYCAN_BIOSYN" "-0.6857" "0"     "0"     
+##  [5,] "69"     "KEGG_DRUG_METABOLISM" "-0.5306" "0"     "0"     
+##  [6,] "142"    "KEGG_INSULIN_SIGNALI" "-0.3796" "0"     "0"     
+##  [7,] "11"     "KEGG_STEROID_HORMONE" "-0.7588" "0.01"  "0.178" 
+##  [8,] "30"     "KEGG_STARCH_AND_SUCR" "-0.3887" "0.01"  "0.178" 
+##  [9,] "67"     "KEGG_METABOLISM_OF_X" "-0.6237" "0.01"  "0.178" 
+## [10,] "68"     "KEGG_DRUG_METABOLISM" "-0.5961" "0.01"  "0.178" 
+## [11,] "62"     "KEGG_TERPENOID_BACKB" "-0.7314" "0.02"  "0.2967"
+## [12,] "102"    "KEGG_MTOR_SIGNALING_" "-0.3444" "0.02"  "0.2967"
+## [13,] "60"     "KEGG_RETINOL_METABOL" "-0.5196" "0.03"  "0.356" 
+## [14,] "87"     "KEGG_ERBB_SIGNALING_" "-0.237"  "0.03"  "0.356" 
+## [15,] "10"     "KEGG_PRIMARY_BILE_AC" "-0.5234" "0.04"  "0.356" 
+## [16,] "29"     "KEGG_GLUTATHIONE_MET" "-0.4147" "0.04"  "0.356" 
+## [17,] "39"     "KEGG_GLYCEROLIPID_ME" "-0.4147" "0.04"  "0.356" 
+## [18,] "91"     "KEGG_PHOSPHATIDYLINO" "-0.2111" "0.04"  "0.356" 
+## [19,] "101"    "KEGG_PEROXISOME"      "-0.7756" "0.04"  "0.356" 
+## [20,] "166"    "KEGG_ENDOMETRIAL_CAN" "-0.3821" "0.04"  "0.356" 
+## [21,] "16"     "KEGG_GLYCINE_SERINE_" "-0.3191" "0.05"  "0.387" 
+## [22,] "80"     "KEGG_PPAR_SIGNALING_" "-0.46"   "0.05"  "0.387" 
+## [23,] "146"    "KEGG_ADIPOCYTOKINE_S" "-0.2582" "0.05"  "0.387" 
 ## 
 ## $positive
-##      Gene_set Gene_set_name          Score    p-value FDR    
-## [1,] "144"    "KEGG_PROGESTERONE_ME" "0.3738" "0"     "0"    
-## [2,] "160"    "KEGG_PATHOGENIC_ESCH" "0.4576" "0"     "0"    
-## [3,] "173"    "KEGG_CHRONIC_MYELOID" "0.2766" "0"     "0"    
-## [4,] "94"     "KEGG_OOCYTE_MEIOSIS"  "0.3579" "0.01"  "0.445"
+##      Gene_set Gene_set_name Score p-value FDR
 ## 
 ## $nsets.neg
-## [1] 37
+## [1] 23
 ## 
 ## $nsets.pos
-## [1] 4
+## [1] 0
 \end{verbatim}
 \end{kframe}
 \end{knitrout}

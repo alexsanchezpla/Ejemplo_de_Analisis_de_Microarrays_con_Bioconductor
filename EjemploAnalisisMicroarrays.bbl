@@ -1,0 +1,81 @@
+\begin{thebibliography}{10}
+
+\bibitem{BenjaminiHochberg:1995}
+Y.~Benjamini and Y.~Hochberg.
+\newblock Controlling the false discovery rate: {A} practical and powerful
+  approach to multiple testing.
+\newblock {\em Journal of the Royal Statistical Society B}, 57:289--300, 1995.
+
+\bibitem{Choe:2005}
+Sung Choe, Michael Boutros, Alan Michelson, George Church, and Marc Halfon.
+\newblock Preferred analysis methods for affymetrix genechips revealed by a
+  wholly defined control dataset.
+\newblock {\em Genome Biology}, 6(2):R16, 2005.
+
+\bibitem{Falcon:2007}
+S.~Falcon and R.~Gentleman.
+\newblock Using gostats to test gene lists for go term association.
+\newblock {\em Bioinformatics}, 23(2):257--258, 2007.
+
+\bibitem{Farmer2005}
+Pierre Farmer, Herve Bonnefoi, Veronique Becette, Michele {Tubiana-Hulin},
+  Pierre Fumoleau, Denis Larsimont, Gaetan Macgrogan, Jonas Bergh, David
+  Cameron, Darlene Goldstein, Stephan Duss, {Anne-Laure} Nicoulaz, Cathrin
+  Brisken, Maryse Fiche, Mauro Delorenzi, and Richard Iggo.
+\newblock Identification of molecular apocrine breast tumours by microarray
+  analysis.
+\newblock {\em Oncogene}, 24(29):4660--4671, July 2005.
+\newblock {PMID:} 15897907.
+
+\bibitem{Gentleman:2004}
+R.~Gentleman.
+\newblock Using go for statistical analysis.
+\newblock {\em Bioconductor's Compendiums (www.bioconductor.org)}, 2004.
+
+\bibitem{Gentleman:2005}
+Robert Gentleman, Vince Carey, Wolfgang Huber, Rafael Irizarry, and Sandrine
+  Dudoit.
+\newblock {\em Bioinformatics and Computational Biology Solutions using {R} and
+  Bioconductor}.
+\newblock Springer, New York, 2005.
+
+\bibitem{Irizarry:2003}
+R.~A. Irizarry, B.~Hobbs, F.~Collin, Y.~D. Beazer-Barclay, K.~J. Antonellis,
+  U.~Scherf, and T.~P. Speed.
+\newblock Exploration, normalization, and summaries of high density
+  oligonucleotide array probe level data.
+\newblock {\em Biostatistics}, 4:249--264, 2003.
+
+\bibitem{Khatri:2005}
+P.~Khatri and S.~Dr\u{a}ghici.
+\newblock Ontological analysis of gene expression data: current tools,
+  limitations, and problems.
+\newblock {\em Bioinformatics}, 18:3587--3595, 2005.
+
+\bibitem{Leisch:2002b}
+Friedrich Leisch.
+\newblock Sweave: Dynamic generation of statistical reports using literate data
+  analysis.
+\newblock In Wolfgang H{\"a}rdle and Bernd R{\"o}nz, editors, {\em Compstat
+  2002 --- Proceedings in Computational Statistics}, pages 575--580. Physica
+  Verlag, Heidelberg, 2002.
+\newblock ISBN 3-7908-1517-9.
+
+\bibitem{Leisch:2002a}
+Friedrich Leisch.
+\newblock Sweave, part {I}: Mixing {R} and {\LaTeX}.
+\newblock {\em R News}, 2(3):28--31, December 2002.
+
+\bibitem{Smyth:2004}
+Gordon~K Smyth.
+\newblock Linear models and empirical bayes methods for assessing differential
+  expression in microarray experiments.
+\newblock {\em Stat Appl Genet Mol Biol}, 3:Article3, 2004.
+
+\bibitem{Zhu:2010}
+Qianqian Zhu, Jeffrey Miecznikowski, and Marc Halfon.
+\newblock Preferred analysis methods for affymetrix genechips. ii. an expanded,
+  balanced, wholly-defined spike-in dataset.
+\newblock {\em BMC Bioinformatics}, 11(1):285, 2010.
+
+\end{thebibliography}
