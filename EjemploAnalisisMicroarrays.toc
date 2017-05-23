@@ -1,0 +1,41 @@
+\contentsline {section}{\numberline {1}Introducci\IeC {\'o}n y objetivos}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Estructura del documento}{2}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Objetivos}{2}{subsection.1.2}
+\contentsline {section}{\numberline {2}Materiales y m\IeC {\'e}todos}{3}{section.2}
+\contentsline {subsection}{\numberline {2.1}Etapas del analisis}{3}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}M\IeC {\'e}todos de an\IeC {\'a}lisis}{3}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Herramientas y procedimientos bioinform\IeC {\'a}ticos de an\IeC {\'a}lisis}{4}{subsubsection.2.2.1}
+\contentsline {section}{\numberline {3}Obtenci\IeC {\'o}n y lectura de los datos}{5}{section.3}
+\contentsline {subsection}{\numberline {3.1}Los datos para el an\IeC {\'a}lisis}{5}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}Localizaci\IeC {\'o}n de los datos}{5}{subsubsection.3.1.1}
+\contentsline {subsubsection}{\numberline {3.1.2}Selecci\IeC {\'o}n de muestras para el an\IeC {\'a}lisis}{6}{subsubsection.3.1.2}
+\contentsline {subsubsection}{\numberline {3.1.3}Lectura de los datos}{6}{subsubsection.3.1.3}
+\contentsline {section}{\numberline {4}Preprocesado: Exploraci\IeC {\'o}n, Control de Calidad y Normalizaci\IeC {\'o}n}{7}{section.4}
+\contentsline {subsection}{\numberline {4.1}Exploraci\IeC {\'o}n y visualizaci\IeC {\'o}n}{8}{subsection.4.1}
+\contentsline {subsubsection}{\numberline {4.1.1}Exploraci\IeC {\'o}n estad\IeC {\'\i }stica de los datos}{8}{subsubsection.4.1.1}
+\contentsline {subsubsection}{\numberline {4.1.2}Control de calidad (2): m\IeC {\'e}todos espec\IeC {\'\i }ficos para microarrays}{14}{subsubsection.4.1.2}
+\contentsline {subsubsection}{\numberline {4.1.3}Archivos con los resultados del control de calidad}{14}{subsubsection.4.1.3}
+\contentsline {subsection}{\numberline {4.2}Normalizacion y Filtraje}{14}{subsection.4.2}
+\contentsline {subsubsection}{\numberline {4.2.1}Filtraje}{16}{subsubsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2}Archivos de resultados normalizados}{16}{subsubsection.4.2.2}
+\contentsline {section}{\numberline {5}Selecci\IeC {\'o}n de genes diferencialmente expresados}{17}{section.5}
+\contentsline {subsection}{\numberline {5.1}Seleccion b\IeC {\'a}sica de genes en una comparaci\IeC {\'o}n entre dos grupos}{17}{subsection.5.1}
+\contentsline {subsubsection}{\numberline {5.1.1}C\IeC {\'a}lculo de estad\IeC {\'\i }sticos de test y p--valores}{17}{subsubsection.5.1.1}
+\contentsline {paragraph}{Volcano plots}{19}{section*.2}
+\contentsline {paragraph}{Alternativas al test $t$ de Student}{20}{section*.3}
+\contentsline {subsubsection}{\numberline {5.1.2}Selecci\IeC {\'o}n de los genes [m\IeC {\'a}s] expresados \@inpenc@undefined@ {utf8}\@inpenc@undefined@ {utf8}diferencialmente}{21}{subsubsection.5.1.2}
+\contentsline {subsubsection}{\numberline {5.1.3}Ajuste de p--valores para comparaciones m\IeC {\'u}ltiples}{21}{subsubsection.5.1.3}
+\contentsline {subsection}{\numberline {5.2}An\IeC {\'a}lisis basado en modelos lineales}{22}{subsection.5.2}
+\contentsline {subsubsection}{\numberline {5.2.1}Matrices de dise\IeC {\~n}o y de contrastes}{22}{subsubsection.5.2.1}
+\contentsline {subsubsection}{\numberline {5.2.2}Estimaci\IeC {\'o}n del modelo y selecci\IeC {\'o}n de genes}{24}{subsubsection.5.2.2}
+\contentsline {subsubsection}{\numberline {5.2.3}Principales genes expresados diferencialmente}{24}{subsubsection.5.2.3}
+\contentsline {section}{\numberline {6}Post-procesado de las listas de genes obtenidas}{24}{section.6}
+\contentsline {subsection}{\numberline {6.1}Comparaciones m\IeC {\'u}ltiples}{25}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Anotaci\IeC {\'o}n de resultados}{25}{subsection.6.2}
+\contentsline {subsubsection}{\numberline {6.2.1}Tablas de anotaciones sencillas}{28}{subsubsection.6.2.1}
+\contentsline {subsubsection}{\numberline {6.2.2}Archivos de resultados con tablas hiperenlazables}{28}{subsubsection.6.2.2}
+\contentsline {subsection}{\numberline {6.3}Visualizaci\IeC {\'o}n de los perfiles de expresi\IeC {\'o}n}{29}{subsection.6.3}
+\contentsline {subsection}{\numberline {6.4}An\IeC {\'a}lisis de la significaci\IeC {\'o}n biol\IeC {\'o}gica (1): An\IeC {\`a}lisi de enriquecimiento}{30}{subsection.6.4}
+\contentsline {subsection}{\numberline {6.5}An\IeC {\'a}lisis de la significaci\IeC {\'o}n biol\IeC {\'o}gica (2): Expresi\IeC {\'o}n diferencial de conjuntos de genes}{33}{subsection.6.5}
+\contentsline {section}{\numberline {7}Resumen de resultados y discusi\IeC {\'o}n}{41}{section.7}
+\contentsline {subsection}{\numberline {7.1}Discusi\IeC {\'o}n}{42}{subsection.7.1}

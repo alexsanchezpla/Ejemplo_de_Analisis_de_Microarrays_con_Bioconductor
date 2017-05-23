@@ -1,0 +1,1108 @@
+
+<<include=FALSE>>=
+library(knitr)
+opts_chunk$set(fig.path='images/grafic', tidy=FALSE, cache=FALSE)
+@
+
+\documentclass[a4paper]{article}
+
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage[utf8]{inputenc}
+% \usepackage[spanish]{babel}
+\usepackage{underscore}
+
+\newcommand{\etal}{{\it et alt.}}
+\newcommand{\R}{{\it R}}
+\newcommand{\Rpackage}[1]{{\texttt{#1}}}
+\newcommand{\Rcode}[1]{{\texttt{#1}}}
+\newcommand{\Rfun}[1]{{\texttt{#1}}}
+
+\title{Genómica funcional y análisis de microarrays\\
+  Primera PEC : Selección de genes expresados diferencialmente}
+
+\author{Alex Sánchez}
+
+\bibliographystyle{plain}
+
+\begin{document}
+
+
+\setkeys{Gin}{width=0.7\textwidth} % Sets default width for R-Sweave generated figures
+
+\maketitle
+
+\tableofcontents
+
+\section{Introducción y objetivos}
+
+Este documento presenta una solución al ejercicio de análisis de microarrays propuesto en la asignatura de \emph{Genómica Funcional y Análisis de Microarrays}. Su objetivo no es mostrar como realizar el mejor análisis de microarrays posible sino como hacerlo utilizando los conceptos y ejemplos proporcionados en las unidades dedicadas a este tema.
+
+\subsection{Estructura del documento}
+
+Típicamente un trabajo científico o técnico se organiza en varias partes: \emph{Introducción}, \emph{Material y Métodos}, \emph{Resultados} y \emph{Discusión}. Dado que el objetivo de este estudio es demostrar la aplicación de los métodos de análisis explicados en la asignatura esta estructura se relajará. Después de la introducción se realizará una breve descripción del proceso general y los métodos utilizados en cada paso. A continuación se presentarán los resultados obtenidos en cada fase del análisis. Finalmente se presentará una breve discusión sobre las posibles limitaciones encontradas.
+
+\subsection{Objetivos}
+
+El objetivo de este trabajo es realizar un análisis de datos de microarrays 
+para encontrar genes diferencialmente expresados entre varios tipos de tumores de cancer de mama clasificados en tres grupos: apocrinos (APO), basales (BAS) y luminales (LUMI). 
+
+Esta clasificación se basa en la resistencia de los tumores a los receptores de estrógenos y de andrógenos. 
+\begin{itemize}
+\item Los tumores clasificados como ``APO'' son negativos para los receptores de estrógenos (ER-) y positivos para los receptores de andrógenos (AR+).
+\item  los clasificados como ``LUMI'' son (ER+) y (AR+) y
+\item los clasificados como ``BAS'' son (ER-) y (AR-).
+\end{itemize}
+
+Es conveniente destacar que, de hecho, el objetivo de la práctica difiere del objetivo del artículo en que se basa. Mientras que el artículo se busca  \emph{descubrir} los tres grupos con los que trabajamos en este ejercicio se pretende caracterizarlos a través de los gene que se expresan de forma distinta entre ellos. No deja de ser un problema del tipo ``el huevo y la gallina'', es decir: \emph{¿Puesto que se trata de grupos distintos encontramos genes que se expresan diferencialmente entre ellos o dado que hay genes que se expresan diferencialmente podemos deducir que son grupos distintos?}
+
+\section{Materiales y métodos}
+
+\subsection{Etapas del analisis}
+
+El análisis se ha realizado siguiendo las pautas descritas en los capítulos 6 a 11 de los apuntes de la asignatura \url{http://ueb.vhir.org/cursos/Microarrays} y resumidos en la figura \ref{fig:pipeline}.
+
+\begin{figure}[htbp]\begin{center}
+\includegraphics[width=9cm]{images/analysisProcess}\\
+\caption{The Microarray Analysis Process}\label{fig:pipeline}
+\end{center}
+\end{figure}
+
+\subsection{Métodos de análisis}
+
+Antes de hibridar los microarrays\footnote{Esta primera parte es ficticia en tanto que no hemos tendio acceso al proceso de elaboración de los microarrays, por lo que he escrito lo que suele ponerse en esta parte} se comprobó la calidad del cRNA de cada muestra. Sólo las que demostraron una calidad suficiente --presumiblemente un valor de ``Bio-analyser''\footnote{Sistema para el análisi de la calidad del RNA} igual o superior a 7-- se sometieron a análisis posterior.. 
+
+Los valores ``crudos'' de expresión obtenidos directamente de los archivos CEL se preprocesa utilizando el método de RMA (\cite{Irizarry:2003}), un proceso de tres pasos que integra la corrección de fondo, la normalización y el resumen de los valores del grupo de sondas en un único valor de expresión ``absoluta''. Dichos valores normalizados fueron la base para todos los análisis.
+
+Antes de la selección de genes los valores normalizados se sometieron a un filtraje no específico para eliminar los genes de baja 
+%señal (los genes cuya media de la señal en cada grupo no supera un umbral mínimo) y los genes de baja 
+variabilidad (los genes cuyo rango intercuartil entre todas las muestras no superó un umbral mínimo).
+
+La selección de genes diferencialmente expresados entre condiciones experimentales se basó en el método desarrollado por Smyth y otros ~\cite{Smyth:2004}.
+
+%La selecci\'on de genes ​diferencialmente expresados entre condiciones experimentales se bas\'o en la utilización de modelos lineales complementados con una moderación de la varianza mediante m\'etodos bayesianos emp\'iricos siguiendo la metodolog\'ia desarrollada por Smyth \cite{Smyth:2004}.
+
+Este método extiende el análisis de la varianza clásico utilizando métodos Bayesianos empíricos para combinar la información de cada gen individual con la de todos los genes restantes para obtener mejores estimaciones de error. Esto es de gran utilidad en análisis de microarrays, un contexto en el que el tamaño de las muestras es a menudo pequeño lo que puede dar lugar a estimaciones de los errores erráticos y, en consecuencia, p--valores que no son de fiar.
+
+Los genes más relevantes de cada comparaci\'on se resaltaron utilizando ``volcano-plots'', 
+que organizan los genes a lo largo de dos dimensiones que podemos considerar de importancia biológica y estadística. El eje horizontal representa el cambio medio de expresión entre los dos grupos (en una escala logarítmica, por lo que la regulación hacia arriba y abajo aparecen simétrica), y el segundo (vertical) representa el ``menos logaritmo del p-valor'' por lo que los genes cuyo p-valor asociado sea inferior aparecen más arriba. El primer eje indica el impacto biológico del cambio, y el segundo indica la evidencia estadística, o la fiabilidad de dicho cambio.
+
+
+Con el fin de hacer frente a la problemática derivada del hecho de que muchas pruebas (una por cada gen) se realizan simultáneamente, se realizo un ajuste de p--valores para obtener control sobre la tasa de falsos positivos usando el método de Benjamini y Hochberg (\cite{BenjaminiHochberg:1995}).
+
+
+
+Los genes seleccionados como diferencialmente expresados se agruparon para buscar patrones comunes de expresión entre condiciones experimentales.
+Para ello se utilizaron mapas de colores o ``Heatmaps'' que realizan una agrupación jerárquica de los genes y/o las muestras y la representan mediante una gama de colores apropiada, de forma que valores altos o bajos se corresponden a colores distintos de la gama escogida.
+
+Las listas de genes diferencialmente expresados se anotaron en diversas bases de datos (Entrez, Unigene, Gene Ontology, KEGG, ...) utilizando los paquetes de anotación para microarrays de affymetrix disponibles en el proyecto Bioconductor (\url{http://bioconductor.org}).
+
+Para contribuir a la interpretación biológica de los resultados se realizó un análisis de enriquecimiento \cite{Gentleman:2004, Falcon:2007} que busca establecer si las categorias funcionales de los genes seleccionados aparecen entre estos genes con mayor (o menor) frecuencia que entre todos los del genoma. De ser así se indica que la lista de genes se encuentra ``enriquecida'' en estas funcionalidades, o lo que es lo mismo que los procesos afectados por las diferencias son éstos.
+
+\subsubsection{Herramientas y procedimientos  bioinformáticos de análisis}
+
+Los análisis estadísticos se realizaron utilizando el lenguaje estadístico  \R  y las librerías  desarrolladas para el análisis de microarray en el proyecto de Bioconductor (\url{www.bioconductor.org}). Para más detalle sobre los métodos descritos en esta sección puede consultarse \cite{Gentleman:2005}.
+
+El código siguiente se utilizó para instalar los paquetes de Bioconductor necesarios para el análisis.
+
+<<librerias, echo=FALSE, message=FALSE>>=
+installifnot <- function (pckgName){
+ if (!(require(pckgName, character.only=TRUE))) {
+    source("https://bioconductor.org/biocLite.R")
+    biocLite(eval(pckgName), suppressUpdates=TRUE)
+  }else{
+    print(paste("Package", pckgName, "already installed", sep=" "))
+  } 
+}
+installifnot("Biobase")
+installifnot("affy")
+installifnot("arrayQualityMetrics")
+installifnot("genefilter")
+installifnot("multtest")
+installifnot("limma")
+installifnot("hgu133a.db")
+installifnot("annotate")
+installifnot("annaffy")
+installifnot("hwriter")
+installifnot("gplots")
+installifnot("GOstats")
+installifnot("GSA")
+@ 
+
+
+\section{Obtención y lectura de los datos}
+
+\subsection{Los datos para el análisis}
+
+Los datos en que se basa el estudio se han obtenido a partir de tumores de mama (``advanced/inflammatory breast tumours'') y fueron tomados antes del tratamiento de pacientes enrolados en un estudio clínico (EORTC 10994). 
+
+Los microarrays se prepararon a partir de RNA total extraído de secciones de 25 mm de biopsias y amplificados mediante el procedimiento ``Eberwine T7 procedure'' siguiendo el protocolo indicado por Affymetrix para pequeñas muestras.
+
+Los datos de los microarrays se encuentran en Gene Expression Omnibus (GEO) con el número de serie GSE1561. Puede accederse a ellos  en el siguiente enlace \url{http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE1561}. El artículo de Farmer (\cite{Farmer2005}) \etal (\url{http://www.ncbi.nlm.nih.gov/pubmed/15897907}) describe el estudio.
+
+\subsubsection{Localización de los datos}
+
+Como es habitual en este curso supondremos que trabajamos en un directorio 
+escogido por nosotros y cuya localización se asigna a la variable \texttt{workingDir}.
+
+Asumiremos que los datos se encuentran en un subdirectorio del anterior, denominado ``data'' que se almacenará en la variable \texttt{dataDir} y que los resultados se almacenarán en un directorio ``results'' cuyo nombre completo se almacenará en la variable  \texttt{resultsDir}.
+
+<<preparaDirectorios, eval=TRUE>>=
+workingDir <-getwd()
+dataDir <-file.path(workingDir, "data")
+resultsDir <- file.path(workingDir,"results")
+celfilesDir <- file.path(workingDir,"celfiles")
+setwd(workingDir)
+@
+
+\subsubsection{Selección de muestras para el análisis}
+
+Este análisis se ha basado en un subconjunto de muestras del estudio original.
+Las muestras se han obtenido de la lista original mediante un pequeño script de \R.
+
+De la dirección  \url{http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE1561}  es posible descargar un archivo comprimido con los 49 archivos ``.cel''. Con el fin de simplificar el análisis se decidió seleccionar aleatoriamente 5 arrays de cada grupo utilizando a partir de la información contenida en el archivo: ``Asignacion_de_Muestras_A_Grupos.csv'' elaborado a partir de la información sobre el diseño experimental contenida en: \url{http://www.ncbi.nlm.nih.gov/geo/gds/profileGraph.cgi?gds=1329}
+
+<<tomaMuestras>>=
+# muestras <- read.csv2(file.path(dataDir, "Asignacion_de_muestras_a_grupos.csv"),  head=T)
+# misMuestras <- as.character (muestras$Sample)
+# paraAnalisis <- c(sample(misMuestras[1:6], 5), 
+#                  sample(misMuestras[7:20], 5),
+#                  sample(misMuestras[23:48], 5))
+# alAnalisis <-muestras[muestras$Sample %in% paraAnalisis,]
+# write.table(alAnalisis, file=file.path(dataDir, "targets.txt"), 
+#            sep="\t", row.names=FALSE, quote=FALSE)
+@ 
+
+\subsubsection{Lectura de los datos}
+
+La lectura de datos se lleva a cabo utilizando las clases y métodos definidas en los paquetes \Rcode{Biobase} y \Rcode{affy} de Bioconductor.
+
+Una forma cómoda de leer los datos y, al mismo tiempo, asignar a cada muestra los valores de las covariables (por ejemplo el grupo para el analisis) consiste en crear un pequeño archivo de texto, que suele denominarse \Rcode{targets.txt} y que contiene la identificacion de cada archivo con la asignación de cada muestra a cada condición experimental. El archivo targets para este caso tiene el aspecto que se muestra en la tabla siguiente.
+
+<<phenoData1, echo=FALSE, results='asis', eval=TRUE>>=
+require(Biobase)
+my.targets <-read.AnnotatedDataFrame(file.path(dataDir,"targets.txt"), 
+  header = TRUE, row.names = 1) 
+stopifnot(require(xtable))
+x.big<-xtable(pData(my.targets)[,1:4],
+    caption='Archivo targets.txt con la asignación a cada muestra de su condición experimental')
+print(x.big,tabular.environment='longtable',floating=FALSE)
+@
+
+El contenido del archivo \texttt{targets} se utiliza en la lectura de los datos y la creación del objeto \texttt{rawData} de la clase \texttt{affybatch} que contendrá las intensidade ``crudas'' de cada archivo .CEL
+
+<<affybatch.create, eval=TRUE>>=
+require(affy)
+sampleInfo <- read.AnnotatedDataFrame(file.path(dataDir,"targets.txt"), 
+    header = TRUE, row.names = 1, sep="\t")
+fileNames <- rownames(pData(sampleInfo))
+rawData <- read.affybatch(filenames=file.path(celfilesDir,fileNames),
+                          phenoData=sampleInfo)
+show(rawData)
+@
+
+Este objeto es la base para todos los análisis que se realizarán.
+
+
+\section{Preprocesado: Exploración, Control de Calidad y Normalización}
+
+Los datos procedentes de la lectura de los microarrays se denominan datos ``crudos'' y deben ser pre-procesados de diversas formas antes de analizarlos.
+
+``Preprocesado'' es un término genérico que engloba varios procesos
+\begin{itemize}
+\item Exploración y control de calidad de los datos.
+\item Normalización y resumen (llamdo ``sumarización'') de los valores de las sondas de cada grupo de sondas.
+\item Filtrado no específico para eliminar el efecto de genes que no se expresan o bien no se expresan de forma distinta entre los grupos.
+\end{itemize}
+
+A su vez la exploración y el control de calidad contempla:
+\begin{enumerate}
+\item Exploraciones estadísticas estándar.
+\item Técnicas de control de calidad desarrolladas específicamente para datos de microarrays.
+\end{enumerate}
+
+\subsection{Exploración y visualización}
+
+La exploración de los datos suele basarse en técnicas univariantes
+como los histogramas o los diagramas de caja o en técnicas
+multivariantes como los análisis de conglomerados (``clusters''), de
+distancias o de análisis de componentes principales.
+
+\subsubsection{Exploración estadística de los datos}
+
+<<preajustes, echo=F, eval=TRUE>>=
+colores <- c(rep("yellow", 5), rep("blue", 5), rep("red", 5))
+grupos <- pData(rawData)$Group
+numSamples <- nrow(pData(rawData))
+sampleNames <-paste( pData(rawData)$SampleIDs, grupos, sep=".")
+colnames(exprs(rawData))<-sampleNames
+@ 
+
+Un gráfico de densidad --mal llamado en este contexto, histograma--
+permite hacerse una idea de si las distribuciones de los distintos
+arrays son similares en forma y posición.
+
+\begin{figure}[htbp]
+<<plotHist,echo=F,eval=TRUE>>=
+hist(rawData, main="Signal distribution", col=colores, lty=1:numSamples)
+legend (x="topright", legend=sampleNames , col=colores, lty=1:numSamples)
+@
+\caption{Distribución de las expresiones de cada array. Aunque los gráficos muestran una cierta heterogeneidad entre muestras el aspecto de todas ellas es compatible con la "normalidad" es decir no sugieren que pueda haber algún problema en los datos.}
+\end{figure}
+
+Un diagrama de cajas muestra la misma información facilitando más la comparaci\'on entre distribuciones.
+  
+\begin{figure}[htbp]
+\centering
+<<boxplot,  eval=TRUE>>=
+boxplot(rawData, cex.axis=0.6, col=colores, las=2, names=sampleNames, 
+        main="Signal distribution for selected chips")
+@ 
+  \caption{El diagrama de cajas muestra, de forma similar al histograma, cómo las distribuciones de los datos son relativamente similares. Hay heterogeneidad pero no se muestra ninguna diferencia sistemática, lo que sugiere que es conveniente normalizar peró no parece que hayan arrays problemáticos}
+  \label{fig:boxplot}
+\end{figure}
+
+Una representación multivariante como la ofrecida por los gráficos de las componentes principales suele resultar muy informativa de posibles problemas como efectos batch o presencia de valores "raros". El gráfico de componentes principales muestra los datos en dimensión reducida de forma que cada componente explica una dimensión de mayor variabilidad e independiente de la siguiente. Representando el porcentaje de variabilidad explicada para cada componente tenemos una medida de la importancia de los grupos que se puedan visualizar. Si la suma de los porecentajes es alta, por ejemplo superior al 50\% las conclusiones que de ellos se deriven seran más fiables que con valores bajos, por ejemplo inferiores al 30\% de varianza explicada.
+
+<<plotPCA, eval=TRUE>>=
+plotPCA <- function ( X, labels=NULL, colors=NULL, dataDesc="", scale=FALSE)
+{
+  pcX<-prcomp(t(X), scale=scale) # o prcomp(t(X))
+  loads<- round(pcX$sdev^2/sum(pcX$sdev^2)*100,1)
+  xlab<-c(paste("PC1",loads[1],"%"))
+  ylab<-c(paste("PC2",loads[2],"%"))
+  if (is.null(colors)) colors=1
+  plot(pcX$x[,1:2],xlab=xlab,ylab=ylab, col=colors, 
+       xlim=c(min(pcX$x[,1])-10, max(pcX$x[,1])+10))
+  text(pcX$x[,1],pcX$x[,2], labels, pos=3, cex=0.8)
+  title(paste("Plot of first 2 PCs for expressions in", dataDesc, sep=" "), cex=0.8)
+}
+@ 
+
+\begin{figure}[htbp]
+\centering
+<<plotPCA2D, eval=TRUE>>=
+plotPCA(exprs(rawData), labels=sampleNames, dataDesc="selected samples")
+@
+\caption{Representación de las dos primeras componentes de un análisi de components principales. Los grupos aparecen algo separados pero el porcentaje de variabilidad explicado por las dos primeras componentes sugiere que puede no ser muy explicativas}
+\label{fig:PCA2D}
+\end{figure}
+
+Un enfoque alternativo al del PCA aunque relacionado es realizar un análisis basado en distancias. Podemos hacerlo calculando y visualizando la matriz de distancias mediante un mapa de colores o mediante un agrupamiento jerárquico seguido de un dendrograma.
+
+\begin{figure}
+\centering
+<<distAnalisis, eval=TRUE>>=
+  manDist <-  dist(t(exprs(rawData))) 
+  heatmap (as.matrix(manDist),  col=heat.colors(16))  
+@
+\caption{Mapa de colores de las distancias (euclídeas) entre los distintos arrays}
+\label{fig:distArrays}
+\end{figure}
+
+
+Un cluster jerárquico seguido de un dendrograma nos puede ayudar a hacernos una idea de si las muestras se agrupan por condiciones experimentales. 
+
+Si lo hacen es bueno, pero si no, no es necesariamente indicador de problemas, 
+puesto que es un gráfico basado en todo los datos.
+
+\begin{figure}
+\centering
+<<plotDendro, echo=F,eval=TRUE>>=
+clust.euclid.average <- hclust(dist(t(exprs(rawData))),method="average")
+plot(clust.euclid.average, labels=sampleNames, main="Hierarchical clustering of samples",  hang=-1)
+@
+\caption{Dendrograma resultante de un agrupamiento jerárquico entre las muestras.
+  Como en otras representaciones (Heatmaps, PCA) se observa una cierta agrupación de muestras de tipos similares aunque también una cierta heterogeneidad, atribuïble probablemente a la diferencia entre pacientes}
+\label{fig:dendrograma}
+\end{figure}
+
+\subsubsection{Control de calidad (2): métodos específicos para microarrays}
+
+El paquete \Rpackage{arrayQualitMetrics} encapsula todos los análisis anteriores, y alguno más, facilitando su ejecución e incluso su interpretación. La instrucción \texttt{arrayQualityMetrics} lleva a cabo todos los análisi de golpe y genera un informe de resultados con ayudas a la interpretación y a la detección de arrays problemáticos.
+
+<<arrayQuality, cache=TRUE, warning=FALSE>>=
+stopifnot(require(arrayQualityMetrics))
+arrayQualityMetrics(rawData, outdir = file.path(resultsDir, "arrayQuality"), 
+                    force=TRUE)
+@
+
+\subsubsection{Archivos con los resultados del control de calidad}
+
+Los resultados del control de calidad realizado con \texttt{arrayQualityMetrics} se encuentran  accesibles a traves del archivo \texttt{index.html} contenido en el subdirectorio creado al invocarlo -en este caso denominado \texttt{arrayQuality}.
+
+
+\subsection{Normalizacion y Filtraje}
+
+Una vez realizado el control de calidad se procede a normalizar los datos y sumarizarlos.
+
+La normalización puede hacerse por distintos métodos (MAS5, VSN, RMA, GCRMA, ...) pero en este caso se utilizará el método RMA que es sin duda el más utilizado entre arrays de affymetrix.
+
+El procesado mediante RMA implica un proceso en tres etapas: 
+\begin{itemize}
+\item Corrección de fondo (el RMA hace precisamente esto).
+\item Normalización para hacer los valores de los arrays comparables.
+\item Summarización de las diversas sondas asociadas a cada grupo de sondas para dar un único valor.
+\end{itemize}
+
+
+<<normalization.rma, eval=TRUE>>=
+stopifnot(require(affy))
+eset_rma <- rma(rawData)    
+@
+
+Un boxplot de los valores normalizados muestra que los valores han quedado claramente en una escala común en donde se pueden comparar.
+\begin{figure}[htbp]
+\centering
+<<normBoxPlot, eval=TRUE>>=
+boxplot(eset_rma,main="RMA", names=sampleNames, cex.axis=0.7, col=colores,las=2)
+@
+\caption{El diagrama de cajas después de normalizar muestra como dicho proceso ha puesto los valores en una escala completamente comparable. \emph{Esto no significa que si hubieran errores los habría arreglado} por lo que dicho proceso debe hacerse tras descartar la ausencia de arrays problemáticos}
+\label{fig:normboxplot}
+\end{figure}
+
+\subsubsection{Filtraje}
+
+El filtraje \emph{no específico} permite eliminar los genes que varían poco entre condiciones o que deseamos quitar por otras razones como por ejemplo que no disponemos de anotación para ellos. La función \texttt{nsFilter} permite eliminar los genes que, o bien varían poco, o bien no se dispone de anotación para ellos.
+
+Si al filtrar deseamos usar las anotaciones, o la falta de ellas, como criterio de filtraje debemos disponer del correspondiente paquete de anotaciones.
+
+<<filtraje>>=
+require(genefilter)
+filtered <- nsFilter(eset_rma, require.entrez=TRUE,
+         remove.dupEntrez=TRUE, var.func=IQR,
+         var.cutoff=0.5, var.filter=TRUE,
+         filterByQuantile=TRUE, feature.exclude="^AFFX")
+@ 
+
+La función \texttt{nsFilter} devuelve los valores filtrados en un objeto \texttt{expressionSet} y un informe de los resultados del filtraje.
+
+<<filtrado>>=
+names(filtered)
+class(filtered$eset)
+print(filtered$filter.log)
+eset_filtered <-filtered$eset
+@ 
+
+Podemos grabar el objeto \texttt{eset_rma} y los datos filtrados para su posterior uso.
+
+
+\subsubsection{Archivos de resultados normalizados}
+
+El resultado de la normalización y el filtraje es un objeto \texttt{expressionSet} almacenado en un archivo binario \texttt{datos.normaliados.Rda}, que será la base para todos los estudios posteriores.
+
+
+Es muy común también que los investigadores deseen ver los datos normalizados por lo que también se pueden guardar en un archivo de texto para facilitar su posterior inspección. El archivo \texttt{Datos.Normalizados.Filtrados.csv2} contiene los datos normalizados y filtrados separados por ``;'' para no generar problemas de formato con el punto decimal en ingles o español.
+
+<<writeNormalized>>=
+shortNames<- paste(pData(eset_rma)$Group, pData(eset_rma)$SampleIDs,sep=".")
+sum(rownames(pData(eset_filtered))!=colnames(exprs(eset_filtered)))
+colnames(exprs(eset_filtered))<- colnames(exprs(eset_rma))<- shortNames
+write.csv2(exprs(eset_rma), file.path(resultsDir, "Datos.Normalizados.csv2"))
+write.csv2(exprs(eset_filtered), file.path(resultsDir, "Datos.Normalizados.Filtrados.csv2"))
+save(eset_rma, eset_filtered, file=file.path(resultsDir, "datos.normalizados.Rda"))
+@ 
+
+
+\section{Selección de genes diferencialmente expresados}
+
+Como en las etapas anteriores la selección de genes diferencialmente expresados (GDE) puede basarse en distintas aproximaciones, desde la $t$ de Student, tests de permutaciones o multitud de variantes.
+
+Empezaremos realizando una comparación entre los grupos A y B que nos permitirá introducir algunos conceptos como el ajuste de p-valores para continuar luego con una aproximación más general, la utilización del modelo lineal que facilita la realización simultanea de más de dos comparaciones.
+
+\subsection{Seleccion básica de genes en una comparación entre dos grupos}
+
+Empezamos considerando el caso sencillo: Buscamos genes diferencialmente expresados entre dos condiciones utilizando un test clásico como el test$-t$.
+
+\subsubsection{Cálculo de estadísticos de test y p--valores}
+
+Una aproximación ``naïf'' a este análisis podría hacerse creando una función que calcule el test $t$ de Student y extraiga el p--valor y el valor de test. Aplicando esta función sobre toda la matiz de expresión y ordenando los valores resultantes de menor a mayor p--valor tendríamos una lista de candidatos a genes diferencialmente expresados.
+
+Una versión algo mejorada de esta aproximación puede obtenerse aplicando la función \texttt{rowttests} del paquete
+ \Rpack{genefilter} que calcula los estadísticos de test para cada fila de la matriz de expresión y devuelve, 
+ para cada gen los valores del estadístico $t$, el $p$--valor, los grados de libertad  la diferencia de medias.
+ 
+Escribiendo \texttt{? rowttests} se puede ver qué opciones hay disponibles.
+
+La llamada a la función se hace pasándole el objeto y un campo tipo factor que diferencíe los dos grupos.
+
+Crearemos un subconjunto de los datos tomando tan solo los grupos A y B.
+
+<<>>=
+eset2 <- eset_filtered[,1:10]
+pData(eset2)
+dim(exprs(eset2))
+@
+
+Observemos que esta instrucción ha creado un subconjunto tanto de las covariables como de los datos!!!
+
+<<teststat>>=
+stopifnot(require(genefilter))
+teststat <-rowttests(eset2, "Group")
+head(teststat)
+@
+
+Ordenando los genes de menor a mayor p--valor tenemos una lista de genes \emph{candidatos} 
+a ser considerados diferencialmente expresados.
+
+<<sortStatistics>>=
+topDown<-order(teststat$p.value)
+ranked<-teststat[topDown,]
+print(top10<-ranked[1:10,])
+@
+
+\paragraph{Volcano plots}
+
+Un gráfico muy útil para hacerse una idea de si hay muchos o pocos genes cambiados es el \emph{volcano plot} que representa la significación de cada gen, medida por \emph{``menos el logaritmo del p--valor''} frente al cambio de expresión medido por el \texttt{fold--change} o diferencia de medias, que puede considerarse equivalente a una expresión relativa siempre que los datos se encuentren en una escala logarítmica (``el logaritmo del cociente es la diferencia de logaritmos'').
+
+<<volcano1>>=
+x<-ranked$dm; y<--log(ranked$p.value)
+plot(x, y, xlab="Fold Change", ylab ="-logPval", 
+     main="Volcano plot\nA vs B")
+abline(v=-1);abline(v=1);
+text (x[1:10], y[1:10],rownames(ranked)[1:10], cex=0.7)
+@ 
+
+%\paragraph{Las variancias muy pequeñas pueden generar falsos positivos}
+%Obsérvese que algunos genes tienen valores grandes de $t$ (pequeños de $p$) pero 
+%una diferencia de medias baja, lo que sugiere que su varianza pueda ser muy pequeña y el p--valor se encuentre inflado artificialmente.
+%Podemos calcular las desviaciones estándar y concatenarlas con el objeto anterior 
+%lo que nos permitirá hacernos una idea de si ésto es así.
+
+%<<addvariance>>=
+%sds <- apply(exprs(eset2),1, sd)
+%rankedSD <- sds[topDown]
+%rankedWithSDs <- cbind(ranked, rankedSD)
+%print(top25<-rankedWithSDs[1:10,])
+%topDownSds <- order(rankedWithSDs$rankedSD)
+%print(top25SD<-head(rankedWithSDs[topDownSds,], n=25))
+%@ 
+
+\paragraph{Alternativas al test $t$ de Student}
+
+La utilización del test-$t$ se basa en la suposición de normalidad de los datos que deberíamos verificar, lo cual resulta difícil porque, gen a gen, se dispone sólo de 10 puntos.
+
+A falta de dicha comprobación podríamos usar aproximaciones menos restrictivas como tests de permutaciones similares a los incluïdos en el paquete \texttt{multtest}. 
+
+En este ejemplo y con fines ilustrativos aceptaremos que los p--valores obtenidos nos permite realizar una ordenación válida de los genes de más a menos diferencialmentee expresados.
+
+Aún así subsisten varios problemas que deberíamos considerar:
+
+\begin{itemize}
+\item ¿Cómo podemos seleccionar los genes que deseamos considerar ``expresados diferencialmente''?
+\item ¿Cómo podemos establecer una línea de corte que garantice un control similar ded error tipo I
+al de los análisis estadísticos tradicionales?
+\item ¿Como podemos, por lo menos,  obtener estimaciones decente de los porcentajes de falsos positivos y falsos negativos?
+\end {itemize}
+
+\subsubsection{Selección de los genes [más] expresados diferencialmente}
+
+Suponiendo que consideramos válidas las condiciones para aplicar el test--t podemos clasificar los genes por sus p--valores y seleccionar algunos de los genes de la parte superior de la lista (es decir los que tienen menor p-valor)
+
+<<selectNaif>>=
+selectedNaif <-ranked[ranked$p.value<0.01,]
+nrow(selectedNaif)
+@
+
+Sin embargo, el hecho de que estamos haciendo miles de pruebas al mismo tiempo puede inducir a error.
+Una posibilidad es ajustar los p--valores de tal manera que se obtenga algún tipo
+de \emph{control de la tasa de error global}, es decir la probabilidad de obtener falsos positivos, no con una sino con todas las comparaciones.
+
+Otra posibilidad es estimar la \emph{tasa de falsos positivos o ``False Discovery Rate'' (FDR)}, el porcentaje de falsos positivos entre los genes considerados positivos.
+
+En este caso nos centraremos en la primera opción, ajustar los p--valores.
+
+\subsubsection{Ajuste de p--valores para comparaciones múltiples}
+
+El ajuste para pruebas múltiples de los p--valores permite obtener un control global
+de la probabilidad de considerar equivocadamente un gen como diferencialmente expresado.
+
+Es decir, si seleccionamos los genes cuyos p--valores ajustados, $p^*$ están por debajo de un umbral determinado, ($p^* \leq \alpha$), significa que en lugar de hacer
+las pruebas con un error tipo I de $\alpha$  las hacemos con una FDR (o FWER) esperada
+igual o inferior a $\alpha $.
+
+Hay muchos métodos para ajustar los p--valores. El paquete \Rpack{multtest} proporciona funciones sencillas que permiten realizar los ajustes más usuales.
+
+<<adjustPvalues>>=
+stopifnot(require(multtest))
+#procs <- c("Bonferroni","Holm","Hochberg","SidakSS","SidakSD","BH", "BY")
+procs <- c("Bonferroni","BH")
+adjPvalues <- mt.rawp2adjp(ranked$p.value, procs)
+names(adjPvalues)
+ranked.adjusted<-cbind(ranked[,c(1,3)], adjPvalues$adjp[,-1])
+ranked.adjusted[1:10,]
+@
+
+Como puede verse el número de genes seleccionado si fijáramos el mismo punto de corte sería inferior a si no lo hiciéramos Con los p--valores ajustados podemos usar puntos de corte de 0.01 o 0.05 y, si el ajuste controla la tasa de falsos positivos, este valor puede subir hasta 0.25 puesto que lo que indicaría es que si declaráramos diferencialmente expresados los genes con un p--valor ajustado menor o igual que aquel esperaríamos que, de cada 100 que verificáramos se encontraran 25 falsos positivos, lo que puede resultar perfectamente aceptable en estudios exploratorios.
+
+<<selectedAdjusted>>=
+selectedAdjusted<-ranked.adjusted[ranked.adjusted$BH<0.01,]
+nrow(selectedAdjusted)
+selectedAdjusted2<-ranked.adjusted[ranked.adjusted$BH<0.05,]
+nrow(selectedAdjusted2)
+selectedAdjusted2<-ranked.adjusted[ranked.adjusted$BH<0.25,]
+nrow(selectedAdjusted2)
+@
+
+
+\subsection{Análisis basado en modelos lineales}
+
+Como se ha indicado en la introducción a este apartado, cuando hay más de dos grupos la aproximación natural es realizar algun tipo de análisis de la varianza.
+
+En este ejemplo, se aplicará la aproximación desarrollada por Smyth \emph{et al.} (2004) basado en la utilización del \emph{modelo lineal general} combinada con un método 
+para obtener una estimación mejorada de la varianza. Dicho método se conoce con el mismo nombre del paquete: \texttt{limma} por \emph{linear models for microarray data}.
+
+
+\subsubsection{Matrices de diseño y de contrastes}
+
+El primer paso para el análisis basado en modelos lineales es crear la matriz de diseño.
+Básicamente se trata de una tabla que describe la asignación de cada muestra a un grupo. Tiene tantas filas como muestras y tantas columnas como grupos (si solo se considera un factor)Cada fila contiene un uno en la columna del grupo al que pertenece la muestra y un cero en las restantes.
+
+La matriz de contrastes esse utiliza para describir las comparaciones entre grupos. Consta de tantas columnas como comparaciones y tantas filas como grupos (es decir como columnas de la matriz de diseño). Una comparaci\'on entre grupos --lamada ``contraste''-- se representa con un ``1'' y un ``-1'' en las filas de los grupos a comparar y ceros en las restantes. Si varios grupos intervinieran en la comparaci\'on se tendría tantos coeeficientes como grupos con la única restricción de que su suma sería cero. 
+
+La matriz de diseño puede definirse manualmente o a partir de un factor 
+creado específicamente para ello.
+
+Manualmente, seria:
+<<matDesign, eval=TRUE>>=
+design<-matrix(
+            c(1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
+              0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,
+              0,0,0,0,0,0,0,0,0,0,1,1,1,1,1),
+            nrow=15,byrow=F)
+colnames(design)<-c("A", "B", "L")
+rownames(design) <-  sampleNames 
+print(design)
+@
+
+Las comparaciones que nos interesan son las diferencias, dos a dos entre cada tipo de tumor lo que puede hacerse con los contrastes siguientes:
+
+<<setContrasts, eval=TRUE>>=
+require(limma)
+cont.matrix <- makeContrasts (
+      AvsB = B-A,
+      AvsL = L-A,
+      BvsL = L-B,
+      levels=design)
+print(cont.matrix)
+@
+
+\subsubsection{Estimación del modelo y selección de genes}
+
+Una vez definida la matriz de diseño y los contrastes podemos pasar a estimar 
+el modelo, estimar los contrastes y realizar las pruebas de significación 
+que nos indiquen, para cada gen y cada comparaci\'on, 
+si puede considerarse diferencialmente expresado.
+
+<<linearmodelfit,echo=F, eval=TRUE>>=
+require(limma)
+fit<-lmFit(eset_filtered, design)
+fit.main<-contrasts.fit(fit, cont.matrix)
+fit.main<-eBayes(fit.main)
+@
+
+El método implementado en \Rpackage {limma} amplía el análisis tradicional 
+utilizando modelos de Bayes empíricos para combinar la información de toda la matriz de datos y de cada gen individual y  obtener estimaciones de error mejoradas.
+
+El análisis proporciona los estadísticos de test habituales como \texttt{Fold--change}
+$t$-moderados o $p$-valores ajustados que se utilizan para ordenar los genes de mas a menos diferencialmente expresados.
+
+A fin de controlar el porcentaje de falsos positivos que puedan resultar del alto numero de contrastes realizados simultaneamente
+los p--valores se ajustan de forma que tengamos control sobre la tasa de falsos positivos utilizando el metodo 
+de Benjamini y Hochberg (\cite{BenjaminiHochberg:1995}). 
+
+La funcion \texttt{topTable} genera para cada contraste una lista de genes 
+ordenados de mas a menos diferencialmente expresados.
+
+<<topTables, echo=TRUE, eval=TRUE>>=
+topTab_AvsB <- topTable (fit.main, number=nrow(fit.main), coef="AvsB", adjust="fdr")
+topTab_AvsL <- topTable (fit.main, number=nrow(fit.main), coef="AvsL", adjust="fdr")
+topTab_BvsL  <- topTable (fit.main, number=nrow(fit.main) , coef="BvsL", adjust="fdr")
+@
+
+Los volcano-plots permiten visualizar si hay muchos o pocos genes con un gran fold-change y significativamente expresados o si este número es bajo. Estos gráficos representa en abscisas los cambios de expresión en escala logarítmica
+y en ordenadas el ``menos logaritmo'' del p-valor o alternativamente el estadístico $B$ (``log-odds'').
+
+
+<<volcanos, results='asis', echo=FALSE, eval=FALSE>>=
+for(i in 1:ncol(cont.matrix)){
+  compName <-colnames(cont.matrix)[i]
+  file=paste("volcanoPlot", compName, ".pdf", sep="")
+  pdf(file=file.path(workingDir, "images", file), paper="special", width=6, height=6)
+  volcanoplot(fit.main, coef=i, highlight=10, names=rownames(fit.main), 
+            main=paste("Differentially expressed genes",compName, sep="\n"))
+  abline(v=c(-1,1))
+  dev.off()
+  cat("\\includegraphics{", file, "}\n\n", sep="")
+}
+@
+
+\subsubsection{Principales genes expresados diferencialmente}
+
+Si consideráramos genes expresados diferencialmente aquellos que tienen un p--valor ajustado inferior a $0.05$ o $0.01$ el número de genes diferencialmente expresado en cada caso sería:
+
+<<CuantosGenes, echo=F, eval=FALSE>>=
+cat("Numero de genes con un p--valor inferior a 0.05 en cada comparacion:\n")
+cat ("En la comparacion 'A vs B': ", sum(topTab_AvsB$adj.P.Val<=0.05),"\n")
+cat ("En la comparacion 'A vs L': ", sum(topTab_AvsL$adj.P.Val<=0.05),"\n")
+cat ("En la comparacion 'B vs L': ", sum(topTab_BvsL$adj.P.Val<=0.05),"\n")  
+
+cat("\nNumero de genes con un p--valor inferior a 0.01 en cada comparacion:\n")
+cat ("En la comparacion 'A vs B': ", sum(topTab_AvsB$adj.P.Val<=0.01),"\n")
+cat ("En la comparacion 'A vs L': ", sum(topTab_AvsL$adj.P.Val<=0.01),"\n")
+cat ("En la comparacion 'B vs L': ", sum(topTab_BvsL$adj.P.Val<=0.01),"\n")  
+@ 
+
+
+Los 10 genes más expresados diferencialmente en cada comparaci\'on se muestran en las tablas siguientes:
+
+<<topGenesAvsB, echo=FALSE, results='asis', eval=FALSE>>=
+require(Biobase)
+stopifnot(require(xtable))
+AvsB10<-xtable(topTab_AvsB[1:10,1:6],
+    label='topTab_AvsB',
+    caption='10 genes más expresados diferencialmente en la comparacion A vs B')
+print(AvsB10, tabular.environment='longtable',floating=FALSE)
+@
+
+<<topGenesAvsL,echo=FALSE,results='asis', eval=FALSE>>=
+require(Biobase)
+stopifnot(require(xtable))
+AvsL10<-xtable(topTab_AvsL[1:10,1:6],
+    label='topTab_AvsL',
+    caption='10 genes más expresados diferencialmente en la comparacion A vs L')
+print(AvsL10, tabular.environment='longtable',floating=FALSE)
+@
+
+<<topGenesBvsL,echo=FALSE,results='asis', eval=FALSE>>=
+BvsL10<-xtable(topTab_BvsL[1:10,1:6],
+    label='topTab_BvsL',
+    caption='10 genes más expresados diferencialmente en la comparacion B vs L')
+print(BvsL10, tabular.environment='longtable',floating=FALSE)
+@
+
+
+\section{Post-procesado de las listas de genes obtenidas}
+
+Una vez obtenidas las listas de genes diferencialmente expresados pueden llevarse a cabo todo tipo de análisis sobre ellas, generalmente encaminados a facilitar la interpretación de los resultados.
+
+Entre estas exploraciones --que podemos llamar genericamente ``post-procesado de las listas'' se encuentra
+
+\begin{itemize}
+\item La anotación de las listas de genes en diversas bases de datos.
+
+\item La comparaci\'on entre las listas para determinar que genes cambian simultaneamente -o no- en varias comparaciones (o cuales cambian en una comparaci\'on pero no en otra).
+\item La visualización de todos los genes seleccionados en varias comparaciones para, de forma similar a lo anterior, detectar grupos de genes con patrones de cambio similares --o distintos-- entre distintas comparaciones.
+\item EL análisis de significación biológica de las listas mediante análisis de enriquecimiento o mediante ``gene set analysis'' para detectar si las listas se encuentran enriquecidas en genes asociados a funciones o procesos biológicos determinados.
+\end{itemize}
+
+
+\subsection{Comparaciones múltiples}
+
+Cuando se realizan varias comparaciones a la vez puede resultar importante ver 
+que genes cambian simultáneamente en más de una comparaci\'on.
+Si el número de comparaciones es alto también puede ser necesario realizar un 
+ajuste de p-valores entre las comparaciones, distinto del realizado entre genes.
+
+La función \texttt{decidetests} permite realizar ambas cosas.
+En este ejemplo no se ajustaran los p--valores entre comparaciones. Tan solo se seleccionaran los genes que cambian en una o más condiciones.
+
+EL resultado del análisis es una tabla \texttt{res} que para cada gen y cada comparaci\'on 
+contiene un 1 (si el gen esta sobre-expresado o ``up'' en esta condicion), 
+un 0 (si no hay cambio significativo) o un -1 
+(si esta ``down''-regulado).
+
+<<decideTests.1, echo=F, eval=TRUE>>=
+res<-decideTests(fit.main, method="separate", adjust.method="fdr", p.value=0.01, lfc=1)
+@
+
+Para resumir dicho análisis podemos contar qué filas tienen como mínimo una celda distinta de cero:
+
+<<resumeDecideTests, eval=TRUE>>=
+sum.res.rows<-apply(abs(res),1,sum)
+res.selected<-res[sum.res.rows!=0,] 
+print(summary(res))
+@
+
+En vista de estos valores podemos aplicar otros criterios de selección, por ejemplo genes con un p-valor ajustado inferior a 0.05 y \texttt{log Fold change} mayor o igual a 1.\emph{ Este criterio combina a la vez la significación estadística y la significación biológica por lo que, en un estudio real sería probablemente el escogido}.
+
+<<decideTests.2, echo=F, eval=TRUE>>=
+res<-decideTests(fit.main, method="separate", adjust.method="fdr", p.value=0.05, lfc=1)
+sum.res.rows<-apply(abs(res),1,sum)
+res.selected<-res[sum.res.rows!=0,] 
+print(summary(res))
+@
+
+Un diagrama de Venn permite visualizar la tabla anterior sin diferenciar entre genes ``up'' o ``down'' regulados.
+
+\begin{figure}
+<<venn1, eval=TRUE>>=
+vennDiagram (res.selected[,1:3], main="Genes in common #1", cex=0.9)
+@
+\caption{\label{venn1}Número de genes seleccionado en cada comparaci\'on}
+\end{figure}
+
+
+\subsection{Anotación de resultados}
+
+La identificación de los genes seleccionados puede resultar más sencilla para el especialista en un campo si se utilizan nombres estándar como el simbolo del gen o ``gene symbol''.
+Con esta finalidad cada paquete de anotaciones tiene tablas de correspondencia entre los distintos tipos de identificadores, principalmente entre los del array y los de otras bases de datos.
+
+Para saber que anotaciones estan disponibles debe cargarse el paquete y llamar la función del mismo nombre 
+
+<<anota1, eval=TRUE>>=
+require(hgu133a.db)
+hgu133a()
+@
+
+Cada tabla de asociación puede consultarse de diversas formas, 
+\begin{itemize}
+\item Con las funciones \texttt{get} o \texttt{mget}.
+\item Convirtiéndola en una tabla y extrayendo valores
+\item En algunos casos utilizando funciones específicas como \texttt{getSYMBOL} o \texttt{getEG} (por ``Entrez Gene'') cuando exitan.
+\end{itemize}
+
+Bioconductor dispone de algunos paquetes que permiten aprovechar esta funcionalidad anterior para obtener las anotaciones de cada gen y generar una tabla HTML con enlaces a algunas bases de datos.
+
+De forma sencilla es posible obtener tablas con las anotaciones correspondientes a los genes seleccionados. Si se desea ser más ambicioso es posible generar tablas en las que se combinen hiperenlaces a las anotaciones con los resultados de la selección de genes.
+
+Veamos las distintas posibilidades, en orden de complejidad creciente
+
+\subsubsection{Tablas de anotaciones sencillas}
+
+El paquete \texttt{annafy} permite de forma muy simple generar una tabla de anotaciones con hiperenlaces a las bases de datos para cada anotación seleccionada.
+
+La instrucción siguiente crea una tabla con las anotaciones disponibles para los genes seleccionados en la sección de comparaciones múltiples.
+
+<<annaffy>>=
+require(annaffy)
+genesSelected <- rownames(res.selected)
+at <- aafTableAnn(genesSelected, "hgu133a.db")
+saveHTML (at, file.path(resultsDir, "anotations.html"), 
+          "Annotations for selected genes")
+@ 
+
+
+\subsubsection{Archivos de resultados con tablas hiperenlazables}
+
+La funcion \Rfun{htmlpage} permite generar un archivo html a partir de un \Rfun{data.frame} con una funcionalidad muy interesante: pdemos hacer que una o varias de sus columnas contengan hiperenlaces a alguna base de datos permitiendo acceder a gran cantidad de información sobre los genes de la lista.
+
+Para aprender más sobre su uso se puede leer la viñeta \texttt{How to get pretty output} disponible en Bioconductor.
+
+Mediante un bucle apropiado creamos una tabla anotada para cada comparaci\'on.
+
+<<htmlPages>>=
+require(annotate)
+require(hgu133a.db)
+listOfTables <- list(AvsB = topTab_AvsB, AvsL = topTab_AvsL, BvsL = topTab_BvsL) 
+for (i in 1:length(listOfTables)){
+  # Seleccionamos la "topTable"
+  topTab <- listOfTables[[i]]
+  # Escogemos los grupos de sondas a incluir en la tabla
+  whichGenes<-topTab["P.Value"]<0.05
+  selectedIDs <- rownames(topTab)[whichGenes]
+  # Los convertimos a identificadores Entrez ("EG") y a Gene Symbols
+  genes<- getEG(selectedIDs, "hgu133a.db")
+  simbols <-getSYMBOL(selectedIDs, "hgu133a.db")
+  # Haremos la columna de Entrez sea hiperenlazable
+  paraEnlace <- list (misgenes=genes)
+  # Preparamos el data.frame con el que se creará el archivo de resultados
+  otherNames = data.frame(selectedIDs, simbols, topTab[whichGenes,-1])
+  names(otherNames) = c("Affy ID", "Gene Symbol", colnames(topTab)[-1])
+  # Invocamos la función "htmlpage"
+  comparison <- names(listOfTables)[i]
+  htmlpage(paraEnlace, 
+           filename =file.path(resultsDir, 
+           paste("Selected Genes in comparison ",comparison,".html", sep="")) , 
+           title = paste("Diff. expressed genes in comparison ", comparison, sep=""), 
+           othernames = otherNames, 
+           table.head = c("Entrez IDs", names(otherNames)),
+           table.center = TRUE, 
+           repository=list("en"))
+}
+@ 
+
+
+Podemos tambien salvar una combinacion de la "topTable", las anotaciones y las expresiones.
+% ;SymbolsA;EntrezsA;logFC;AveExpr;t;P.Value;adj.P.Val;B;logFC
+<<expressAndTop>>=
+require(annotate)
+
+EntrezsA <- getEG (rownames(topTab_AvsB), annotation(eset_rma))
+SymbolsA <- getSYMBOL (rownames(topTab_AvsB), annotation(eset_rma))
+ExpressAndTop_AvsB <- cbind(SymbolsA, EntrezsA, topTab_AvsB, exprs(eset_filtered)[rownames(topTab_AvsB), 1:10])
+write.csv2(ExpressAndTop_AvsB, file.path(resultsDir, "ExpressAndTop_AvsB.csv2"))
+
+EntrezsA <- getEG (rownames(topTab_AvsL), annotation(eset_rma))
+SymbolsA <- getSYMBOL (rownames(topTab_AvsL), annotation(eset_rma))
+ExpressAndTop_AvsL <- cbind(SymbolsA, EntrezsA, topTab_AvsL, exprs(eset_filtered)[rownames(topTab_AvsL), c(1:5,11:15)])
+write.csv2(ExpressAndTop_AvsL, file.path(resultsDir, "ExpressAndTop_AvsL.csv2"))
+
+EntrezsA <- getEG (rownames(topTab_BvsL), annotation(eset_rma))
+SymbolsA <- getSYMBOL (rownames(topTab_BvsL), annotation(eset_rma))
+ExpressAndTop_BvsL <- cbind(SymbolsA, EntrezsA, topTab_BvsL, exprs(eset_filtered)[rownames(topTab_BvsL), 6:15])
+write.csv2(ExpressAndTop_BvsL, file.path(resultsDir, "ExpressAndTop_BvsL.csv2"))
+
+@
+
+
+
+
+\subsection{Visualización de los perfiles de expresión}
+
+Tras seleccionar los genes diferencialmente expresados podemos visualizar 
+las expresiones de cada gen agrupándolas para destacar los genes que se 
+encuentran up o down regulados simultáneamente constituyendo \emph{perfiles de expresión}.
+
+Hay distintas formas de visualización pero aquí tan sólo se presenta el uso de mapas de color o 
+\texttt{Heatmaps}.
+
+En primer lugar seleccionamos los genes avisualizar: Se toman todos aquellos que 
+han resultado diferencialmente expresados en alguna de las tres comparaciones.
+
+<<prepareData, eval=TRUE>>=
+probeNames<-rownames(res)
+probeNames.selected<-probeNames[sum.res.rows!=0]
+exprs2cluster <-exprs(eset_rma)[probeNames.selected,]
+colnames(exprs2cluster)<-sampleNames
+color.map <- function(grupo) { 
+  if (grupo=="A"){
+    c<- "yellow" 
+  }else{ 
+    if (grupo=="B"){
+      c<- "red"
+    }else{
+      c<- "blue"
+   }
+  }
+return(c)}
+@
+
+Para representar el Heatmap tan sólo necesitamos la matriz de datos resultante.
+
+\begin{figure}[htbp]
+\centering
+<<plotHeatMap1, eval=TRUE>>=
+grupColors <- unlist(lapply(pData(eset_rma)$Group, color.map))
+heatmap(exprs2cluster, col=rainbow(100), ColSideColors=grupColors, cexCol=0.9)
+@
+\caption{Mapa de colores basado en los genes seleccionados por estar diferencialmente expresados. Como puede verse los tumores Apocrinos y Luminales tienen perfiles de expresión más parecidos entre ellos que cada uno con los de tipo Basal}
+\label{fig:heatmap1}
+\end{figure}
+
+Si se desea realizar mapas de color más sofisticados puede utilizarse el paquete \Rpackage{gplots}
+que implementa una version mejorada en la función \texttt{heatmap.2}
+
+
+\begin{figure}[htbp]
+\centering
+<<plotHeatMap2,  eval=TRUE>>=
+grupColors <- unlist(lapply(pData(eset_rma)$Group, color.map))
+require("gplots")
+heatmap.2(exprs2cluster, 
+          col=bluered(75), scale="row",
+          ColSideColors=grupColors, key=TRUE, symkey=FALSE, 
+          density.info="none", trace="none", cexCol=1)
+@
+\caption{Mapa de colores mejorado basado en los genes seleccionados por estar diferencialmente expresados. Como puede verse los tumores Apocrinos y Luminales tienen perfiles de expresión más parecidos entre ellos que cada uno con los de tipo Basal}
+\label{fig:heatmap2}
+\end{figure}
+
+\subsection{Análisis de la significación biológica (1): Anàlisi de enriquecimiento}
+
+El análisis de significación biológica busca establecer si, dada una lista de genes seleccionados por estar diferencialmente expresados entre dos condiciones, las funciones y procesos biológicos que los caracterizan aparecen en esta lista con mayor frecuencia que entre el resto de genes analizados.
+
+Se han desarrollad multitud de variantes de estos tipos de análisis (\cite{Khatri:2005}) pero aquí utilizaremos el análisis básico de enriquecimiento tal como se describe en los trabajos de Gentleman (\cite{Gentleman:2004}) implementados en el paquete \texttt{GOstats} de Bioconductor.
+
+El análisis se realiza sobre dos bases de datos de anotaciones, la "Gene Ontology'' o la ``Kyoto Encyclopedia of Genes and Genomes''.
+
+Los análisis de este tipo necesitan un número mínimo de genes para resultar fiables por lo que se incluiran en todos los genes con p--valores ajustados inferiores a 0.05 (sin filtrar por minimo ``fold--change'').
+
+<<GOAnalysis>>=
+require(GOstats)
+listOfTables <- list(AvsB = topTab_AvsB, AvsL = topTab_AvsL, BvsL = topTab_BvsL) 
+for (i in 1:length(listOfTables)){
+  # Seleccionamos la "topTable"
+  topTab <- listOfTables[[i]]
+  # Definimos el universo de genes: todos los que se han incluido en el análisis
+  # EL programa trabaja con identificadores "entrez" y no admite duplicados
+  
+  entrezUniverse = unique(getEG(rownames(topTab), "hgu133a.db"))
+  
+  # Escogemos los grupos de sondas a incluir en el análisis
+  # Este análisis trabaja bien con varios centenares de genes 
+  # por lo que es habitual basarse en p-valores sin ajustar para incluirlos
+  
+  whichGenes<-topTab["adj.P.Val"]<0.05
+  geneIds <-   unique(getEG(rownames(topTab)[whichGenes],"hgu133a.db"))
+  
+  # Creamos los "hiperparámetros" en que se basa el análisis
+  GOparams = new("GOHyperGParams",
+    geneIds=geneIds, universeGeneIds=entrezUniverse,
+    annotation="org.Hs.eg.db", ontology="BP",
+    pvalueCutoff=0.001, conditional=FALSE,
+    testDirection="over")
+  KEGGparams = new("KEGGHyperGParams",
+    geneIds=geneIds, universeGeneIds=entrezUniverse,
+    annotation="org.Hs.eg.db",  
+    pvalueCutoff=0.01, testDirection="over")
+
+  # Ejecutamos los análisis
+
+  GOhyper = hyperGTest(GOparams)
+  KEGGhyper = hyperGTest(KEGGparams)
+  
+# Creamos un informe html con los resultados
+   comparison = names(listOfTables)[i]
+   GOfilename =file.path(resultsDir, 
+     paste("GOResults.",comparison,".html", sep=""))
+   KEGGfilename =file.path(resultsDir, 
+     paste("KEGGResults.",comparison,".html", sep=""))
+  htmlReport(GOhyper, file = GOfilename, summary.args=list("htmlLinks"=TRUE))
+  htmlReport(KEGGhyper, file = KEGGfilename, summary.args=list("htmlLinks"=TRUE))
+}
+@ 
+
+\subsection{Análisis de la significación biológica (2): Expresión diferencial de conjuntos de genes}
+
+El análisis de enriquecimiento adolece de un problema consistente en que parte de una lista de genes que ha sido truncada por un punto de corte más o menos arbitraria, lo que deja a muchos posibles genes interesantes fuera del análisis.
+
+EL ``Gene Set Enrichment Analysis" fue introducido para intentar soslayar esta característica. La idea venía a ser que, aunque a veces un gen dado pudiera no estar diferencialmente expresado, un grupo de genes relacionado con una característica médica (enfermedad) o biológica (proceso) podría tender a mostrar más diferencias entre los grupos en estudio que el resto de los genes. Es decir aunque gen a gen no hubiera expresión diferencial este método podría detectars diferencias a nivel del grupo de genes.
+
+A partir del método original se han desarrollado múltiples variaciones. 
+Aquí presentamos la propuesta por Efronn y Tibshirani.
+
+Este método necesita
+\begin{itemize}
+  \item Una matriz de expresión, con una fila por gen, y una columna por muestra
+  \item Un vector de condiciones experimentales
+  \item Un vector de nombres de los genes
+  \item Una lista de grupos de genes (``genesets'')
+\end{itemize}
+
+Por simplicidad se analizará la primera comparaci\'on: ``A vs B''.
+
+<<preparaGenestes>>=
+require(annotate)
+require(hgu133plus2.db)
+geneSets <- read.csv(file.path(dataDir, "PBTs_all_affy.csv"))
+
+## gene sets a comparar amb cadascuna de les toptable
+gsEntrez <- list()
+for (i in 1:dim(geneSets)[2]) {
+  gs <- as.character(geneSets[,i])
+  gs <- gs[gs != ""]
+  gsE <- getEG(gs, data = "hgu133plus2.db")
+  gsEntrez[[colnames(geneSets[i])]] <- unique(gsE[!is.na(gsE)])
+}
+
+gsSymbol <- list()
+for (i in 1:dim(geneSets)[2]) {
+  gs <- as.character(geneSets[,i])
+  gs <- gs[gs != ""]
+  gsSymb <- getSYMBOL(gs,data = "hgu133plus2.db")
+  gsSymbol[[colnames(geneSets[i])]] <- unique(gsSymb[!is.na(gsSymb)])
+}
+genesetsNames <- names(gsEntrez)
+@
+
+
+<<prepareGSEA>>=
+require(genefilter)
+esetUnique <- featureFilter(eset_rma, require.entrez=TRUE, remove.dupEntrez=FALSE)
+dim(exprs(esetUnique))
+esetUnique <- featureFilter(eset_rma, require.entrez=TRUE, remove.dupEntrez=TRUE)
+dim(exprs(esetUnique))
+esetAB<- esetUnique[,pData(esetUnique)$Group %in% c("A","B")]
+pData(esetAB)
+xAB <- exprs(esetAB)
+yAB <- ifelse(pData(esetAB)$Group=="A", 1, 2)
+entrezs<-getEG(rownames(xAB), "hgu133a")
+simbols <-getSYMBOL(rownames(xAB), "hgu133a")
+@
+
+Una vez recopilados los componentes necesarios se ejecuta la llamada al método \texttt{GSA}
+
+<<execGSA>>=
+require(GSA)
+GSA.obj<-GSA(xAB, yAB, genenames=entrezs, genesets=gsEntrez,  resp.type="Two class unpaired", nperms=100)
+GSA.listsets(GSA.obj, geneset.names=genesetsNames, FDRcut=.5)
+@
+
+Si en vez de usar una lista ``ad-hoc" de genesets se desea utilizar conjuntos públicos, pueden descargarse de sitios como el Broad Institute \url{http://software.broadinstitute.org/gsea/downloads.jsp} en formato \texttt{.gmt}.
+
+En este ejemplo se utiliza el conjunto de grupos de genes definidos por los pathways de KEGG.
+
+<<GSAbyKEGG, eco=FALSE, message=FALSE>>=
+geneset.obj <- GSA.read.gmt(file.path(dataDir,"c2.cp.kegg.v5.1.entrez.gmt"))
+GSA.obj2 <- GSA(xAB, yAB, genenames=entrezs, genesets=geneset.obj$genesets,  resp.type="Two class unpaired", nperms=100)
+GSA.listsets (GSA.obj2, geneset.names=geneset.obj$geneset.names, FDRcut=.5)
+@
+
+\section{Resumen de resultados y discusión}
+
+Los controles de calidad llevados a cabo en la primera parte de  este estudio han permitido establecer que los datos con los que se ha trabajado eran de buena calidad, a pesar de presentar una cierta heterogeneidad que queda ilustrada en la incompleta agrupación de las muestras segun sus tipos de tumores.
+
+Los análisis llevados a cabo sobre los datos normalizados y filtrados han permitido detectar un cierto número de genes diferencialmente expresados (ver tabla \ref{resum1}) que se prestan a estudios posteriores acerca de su significación biológica.
+
+\begin{table}[htbp]
+\caption{Genes diferencialmente expresados basados en un cirte definido por un p-valor ajustado (FDR) inferior a 0.05 y un cambio de expresión de cómo mínimo 1.}
+\begin{tabular}{|l|c|c|c|}
+\hline
+ & A vs B & A vs L & B vs L \\ \hline
+Genes “down-regulados” & 228 & 29 & 113 \\ \hline
+Genes “sobre-expresados” & 174 & 27 & 111 \\ \hline
+\end{tabular}
+\label{resum1}
+\end{table}
+
+La lista completas de genes seleccionados (ordenados de mayor a menor p--valor) pueden verse en los archivos ``Selected genes in comparison AvsB.html'', ``Selected genes in comparison AvsL.html'' y ``Selected genes in comparison BvsL.html''.
+
+El análisis de significación biológica ha permitido detectar una serie de funciones y procesos biológicos que caracterizan las listas de genes seleccionadas en las bases de datos de anotaciones más populares, la Gene Ontology (GO) y la ``Kyoto Enyclopedia of Genes and Genomes''. Estas listas pueden verse en las tablas ``GOResults.XXvsYY.html'' y ``KEGGResults.XXvsYY.html'' (XXvsYY es AvsB, AvsL o BvsL) pero no se discuten aquí.
+
+\subsection{Discusión}
+
+El estudio que se ha presentado en este documento es un análisis estándar de microarrays y como tal adolece de sus ventajas e inconvenientes.
+
+Como inconveniente podemos destacar dos cosas
+\begin{itemize}
+\item El tamaño de las muestras utilizadas es bastante limitado lo que determina que el estudio tenga poca potencia por lo que \emph{probablemente} habrá menos reproducibilidad y más falsos negativos de los que sería deseable si se utilizara un mayor número de muestras.
+\item En cada paso del proceso se han tomado decisiones relativamente arbitrarias acerca de los métodos a seguir para la normalización, filtradom selección de genes, etc. La decisión de si estos métodos son los más adecuados o no es probablemente subjetiva (véase por ejemplo los artículos ~\cite{Choe:2005, Zhu:2010}) por lo que sería interesante saber como cambian los resultados si se tomaran otras decisiones.
+\end{itemize}
+
+Los problemas anteriores no son, sin embargo, problemas de este estudio concreto, sino en general de los estudios basados en microarrays por lo que, limitaciones aparte, el estudio aportará probablemente información valiosa que permitirá un seguimiento posterior del problema.
+
+Finalmente debe de tenerse en cuenta que cualquier gen que se acabe considerando realmente expresado diferencialmente se tendrá que verificar mediante otras técnicas como RT-qPCR por lo que este estudio debe de considerarse como un paso hacia el descubrimiento de genes candidatos, no como una fase definitiva.
+
+
+%\subsubsection{Tablas de resultados}
+%Un análisis como el que se ha realizado en este ejercicio genera una gran cantidad de archivos de resultados. \emph{Una buena práctica} en estos casos es preparar algun tipo de tabla que permita tener una visión panorámica de los resultados o navegar entre ellos.
+%Esto puede hacers de forma relativamente sencilla con el paquete \texttt{hwriter}
+
+\bibliography{MDA-references}
+
+\appendix{Codigo R del análisis}
+
+El archivo \texttt{EjemploAnalisisMicroarrays.R} contiene el código R utilizado para realizar todos los análisis presentados en este informe.
+
+El análisis se ha llevado a cabo utilizando el sistema \texttt{Sweave} (\cite{Leisch:2002a, Leisch:2002b}) de análisis reproducibles que integra el sistema \LaTeX y el lenguaje \R para generar a la vez los análisis y el informe de resultados por lo que el código puede contener alguna instrucción inusual cuando su objetivo es generar una tabla de \LaTeX. Aparte de ésto es un código estándar en el que se ha procurado no usar funciones avanzadas sino básicamente lo que se ha discutido en el curso.
+
+\end{document}
+
+\appendix{Lista de archivos generados en el estudio}
+
+La tabla \ref{listaArchivos} contiene una lista de los archivos generados en este estudio. 
+
+<<listaArchivos, echo=FALSE, results='asis', eval=TRUE>>=
+require(gdata)
+listaArchivos <- dir(resultsDir) 
+data.frame(listaArchivos)
+@
+
+Utilizando el paquete \texttt{hwriter} es posible generar de forma sencilla una tabla html con hiperenlaces que permita acceder a los distintos archivos generados en el análisis.
+
+<<listaArchivos2html,echo=FALSE, eval=TRUE>>=
+require(hwriter)
+hwrite(listaArchivos,file.path(resultsDir, "listaArchivos.html"))
+@
