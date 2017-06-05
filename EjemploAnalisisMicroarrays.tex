@@ -161,29 +161,11 @@ El código siguiente se utilizó para instalar los paquetes de Bioconductor nece
 ## [1] "Package arrayQualityMetrics already installed"
 ## [1] "Package genefilter already installed"
 ## [1] "Package multtest already installed"
-\end{verbatim}
-
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: package 'limma' was built under R version 3.3.3}}\begin{verbatim}
 ## [1] "Package limma already installed"
-\end{verbatim}
-
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: package 'IRanges' was built under R version 3.3.3}}
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: package 'S4Vectors' was built under R version 3.3.3}}\begin{verbatim}
 ## [1] "Package hgu133a.db already installed"
-\end{verbatim}
-
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: package 'XML' was built under R version 3.3.3}}\begin{verbatim}
 ## [1] "Package annotate already installed"
 ## [1] "Package annaffy already installed"
 ## [1] "Package hwriter already installed"
-\end{verbatim}
-
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: package 'gplots' was built under R version 3.3.3}}\begin{verbatim}
 ## [1] "Package gplots already installed"
 ## [1] "Package GOstats already installed"
 ## [1] "Package GSA already installed"
@@ -253,7 +235,7 @@ Una forma cómoda de leer los datos y, al mismo tiempo, asignar a cada muestra l
 
 
 {\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: xtable}}\end{kframe}% latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed May 24 00:33:25 2017
+% Mon Jun  5 17:50:53 2017
 \begin{longtable}{rllll}
   \hline
  & Sample & Ids & SampleIDs & Group \\ 
@@ -1323,7 +1305,7 @@ que implementa una version mejorada en la función \texttt{heatmap.2}
 \label{fig:heatmap2}
 \end{figure}
 
-\subsection{Análisis de la significación biológica (1): Anàlisi de enriquecimiento}
+\subsection{Análisis de la significación biológica (1): Análisis de enriquecimiento}
 
 El análisis de significación biológica busca establecer si, dada una lista de genes seleccionados por estar diferencialmente expresados entre dos condiciones, las funciones y procesos biológicos que los caracterizan aparecen en esta lista con mayor frecuencia que entre el resto de genes analizados.
 
@@ -1393,10 +1375,10 @@ Aquí presentamos la propuesta por Efronn y Tibshirani.
 
 Este método necesita
 \begin{itemize}
-  \item Una matriz de expresión, con una fila por gen, y una columna por muestra
-  \item Un vector de condiciones experimentales
-  \item Un vector de nombres de los genes
-  \item Una lista de grupos de genes (``genesets'')
+  \item Una matriz de expresión, con una fila por gen, y una columna por muestra.
+  \item Un vector de condiciones experimentales.
+  \item Un vector de nombres de los genes (se obtendrá del paquete de anotaciones).
+  \item Una lista de grupos de genes o ``genesets'' (se extraerá de un archivo descargado: ``PBTs_all_affy.csv").
 \end{itemize}
 
 Por simplicidad se analizará la primera comparaci\'on: ``A vs B''.
@@ -1405,13 +1387,7 @@ Por simplicidad se analizará la primera comparaci\'on: ``A vs B''.
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{require}\hlstd{(annotate)}
-\hlkwd{require}\hlstd{(hgu133plus2.db)}
-\end{alltt}
-
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: hgu133plus2.db}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# }}\begin{alltt}
+\hlkwd{require}\hlstd{(hgu133a.db)}
 \hlstd{geneSets} \hlkwb{<-} \hlkwd{read.csv}\hlstd{(}\hlkwd{file.path}\hlstd{(dataDir,} \hlstr{"PBTs_all_affy.csv"}\hlstd{))}
 
 \hlcom{## gene sets a comparar amb cadascuna de les toptable}
@@ -1419,7 +1395,7 @@ Por simplicidad se analizará la primera comparaci\'on: ``A vs B''.
 \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{dim}\hlstd{(geneSets)[}\hlnum{2}\hlstd{]) \{}
   \hlstd{gs} \hlkwb{<-} \hlkwd{as.character}\hlstd{(geneSets[,i])}
   \hlstd{gs} \hlkwb{<-} \hlstd{gs[gs} \hlopt{!=} \hlstr{""}\hlstd{]}
-  \hlstd{gsE} \hlkwb{<-} \hlkwd{getEG}\hlstd{(gs,} \hlkwc{data} \hlstd{=} \hlstr{"hgu133plus2.db"}\hlstd{)}
+  \hlstd{gsE} \hlkwb{<-} \hlkwd{getEG}\hlstd{(gs,} \hlkwc{data} \hlstd{=} \hlstr{"hgu133a.db"}\hlstd{)}
   \hlstd{gsEntrez[[}\hlkwd{colnames}\hlstd{(geneSets[i])]]} \hlkwb{<-} \hlkwd{unique}\hlstd{(gsE[}\hlopt{!}\hlkwd{is.na}\hlstd{(gsE)])}
 \hlstd{\}}
 
@@ -1427,7 +1403,7 @@ Por simplicidad se analizará la primera comparaci\'on: ``A vs B''.
 \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{dim}\hlstd{(geneSets)[}\hlnum{2}\hlstd{]) \{}
   \hlstd{gs} \hlkwb{<-} \hlkwd{as.character}\hlstd{(geneSets[,i])}
   \hlstd{gs} \hlkwb{<-} \hlstd{gs[gs} \hlopt{!=} \hlstr{""}\hlstd{]}
-  \hlstd{gsSymb} \hlkwb{<-} \hlkwd{getSYMBOL}\hlstd{(gs,}\hlkwc{data} \hlstd{=} \hlstr{"hgu133plus2.db"}\hlstd{)}
+  \hlstd{gsSymb} \hlkwb{<-} \hlkwd{getSYMBOL}\hlstd{(gs,}\hlkwc{data} \hlstd{=} \hlstr{"hgu133a.db"}\hlstd{)}
   \hlstd{gsSymbol[[}\hlkwd{colnames}\hlstd{(geneSets[i])]]} \hlkwb{<-} \hlkwd{unique}\hlstd{(gsSymb[}\hlopt{!}\hlkwd{is.na}\hlstd{(gsSymb)])}
 \hlstd{\}}
 \hlstd{genesetsNames} \hlkwb{<-} \hlkwd{names}\hlstd{(gsEntrez)}
@@ -1518,19 +1494,29 @@ Una vez recopilados los componentes necesarios se ejecuta la llamada al método 
 ## [1] 0.5
 ## 
 ## $negative
-##      Gene_set Gene_set_name Score     p-value FDR    
-## [1,] "17"     "KT1.1"       "-0.8933" "0"     "0"    
-## [2,] "16"     "KT2"         "-0.6307" "0.05"  "0.325"
-## [3,] "18"     "KT2.1"       "-0.6559" "0.09"  "0.39" 
+##      Gene_set Gene_set_name Score     p-value FDR     
+## [1,] "17"     "KT1.1"       "-0.6122" "0"     "0"     
+## [2,] "15"     "KT1"         "-0.3206" "0.04"  "0.26"  
+## [3,] "16"     "KT2"         "-0.409"  "0.06"  "0.26"  
+## [4,] "18"     "KT2.1"       "-0.3827" "0.11"  "0.3575"
 ## 
 ## $positive
-##      Gene_set Gene_set_name Score p-value FDR
+##       Gene_set Gene_set_name Score    p-value FDR     
+##  [1,] "14"     "IRITD5"      "0.3509" "0.05"  "0.325" 
+##  [2,] "2"      "QCMAT"       "0.6994" "0.07"  "0.325" 
+##  [3,] "8"      "IRRAT"       "0.4773" "0.09"  "0.325" 
+##  [4,] "13"     "IRITD3"      "0.2019" "0.1"   "0.325" 
+##  [5,] "7"      "ENDAT"       "0.2062" "0.15"  "0.39"  
+##  [6,] "3"      "GRIT1"       "0.4357" "0.18"  "0.39"  
+##  [7,] "1"      "QCAT"        "0.5904" "0.22"  "0.4086"
+##  [8,] "6"      "IGT"         "0.2681" "0.28"  "0.4333"
+##  [9,] "11"     "BAT"         "0.2618" "0.3"   "0.4333"
 ## 
 ## $nsets.neg
-## [1] 3
+## [1] 4
 ## 
 ## $nsets.pos
-## [1] 0
+## [1] 9
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -1854,11 +1840,7 @@ La tabla \ref{listaArchivos} contiene una lista de los archivos generados en est
 
 {\ttfamily\noindent\itshape\color{messagecolor}{\#\# }}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# gdata: Unable to load perl libaries needed by read.xls()\\\#\# gdata: to support 'XLSX' (Excel 2007+) files.}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# }}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# gdata: Run the function 'installXLSXsupport()'\\\#\# gdata: to automatically download and install the perl\\\#\# gdata: libaries needed to support Excel XLS and XLSX formats.}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# gdata: read.xls support for 'XLSX' (Excel 2007+) files ENABLED.}}
 
 {\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'gdata'}}
 
@@ -1892,12 +1874,12 @@ La tabla \ref{listaArchivos} contiene una lista de los archivos generados en est
 13                Datos.Normalizados.csv2
 14      Datos.Normalizados.Filtrados.csv2
 15                 datos.normalizados.Rda
-16                 ExpressAndTop.AvsB.ods
-17                 ExpressAndTop.AvsL.ods
-18                 ExpressAndTop.BvsL.ods
-19                ExpressAndTop_AvsB.csv2
-20                ExpressAndTop_AvsL.csv2
-21                ExpressAndTop_BvsL.csv2
+16                ExpressAndTop_AvsB.csv2
+17                 ExpressAndTop.AvsB.ods
+18                ExpressAndTop_AvsL.csv2
+19                 ExpressAndTop.AvsL.ods
+20                ExpressAndTop_BvsL.csv2
+21                 ExpressAndTop.BvsL.ods
 22                    GOResults.AvsB.html
 23                    GOResults.AvsL.html
 24                    GOResults.BvsL.html

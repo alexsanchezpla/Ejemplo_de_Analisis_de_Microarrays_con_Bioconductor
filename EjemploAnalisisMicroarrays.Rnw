@@ -922,7 +922,7 @@ heatmap.2(exprs2cluster,
 \label{fig:heatmap2}
 \end{figure}
 
-\subsection{Análisis de la significación biológica (1): Anàlisi de enriquecimiento}
+\subsection{Análisis de la significación biológica (1): Análisis de enriquecimiento}
 
 El análisis de significación biológica busca establecer si, dada una lista de genes seleccionados por estar diferencialmente expresados entre dos condiciones, las funciones y procesos biológicos que los caracterizan aparecen en esta lista con mayor frecuencia que entre el resto de genes analizados.
 
@@ -988,17 +988,17 @@ Aquí presentamos la propuesta por Efronn y Tibshirani.
 
 Este método necesita
 \begin{itemize}
-  \item Una matriz de expresión, con una fila por gen, y una columna por muestra
-  \item Un vector de condiciones experimentales
-  \item Un vector de nombres de los genes
-  \item Una lista de grupos de genes (``genesets'')
+  \item Una matriz de expresión, con una fila por gen, y una columna por muestra.
+  \item Un vector de condiciones experimentales.
+  \item Un vector de nombres de los genes (se obtendrá del paquete de anotaciones).
+  \item Una lista de grupos de genes o ``genesets'' (se extraerá de un archivo descargado: ``PBTs_all_affy.csv").
 \end{itemize}
 
 Por simplicidad se analizará la primera comparaci\'on: ``A vs B''.
 
 <<preparaGenestes>>=
 require(annotate)
-require(hgu133plus2.db)
+require(hgu133a.db)
 geneSets <- read.csv(file.path(dataDir, "PBTs_all_affy.csv"))
 
 ## gene sets a comparar amb cadascuna de les toptable
@@ -1006,7 +1006,7 @@ gsEntrez <- list()
 for (i in 1:dim(geneSets)[2]) {
   gs <- as.character(geneSets[,i])
   gs <- gs[gs != ""]
-  gsE <- getEG(gs, data = "hgu133plus2.db")
+  gsE <- getEG(gs, data = "hgu133a.db")
   gsEntrez[[colnames(geneSets[i])]] <- unique(gsE[!is.na(gsE)])
 }
 
@@ -1014,7 +1014,7 @@ gsSymbol <- list()
 for (i in 1:dim(geneSets)[2]) {
   gs <- as.character(geneSets[,i])
   gs <- gs[gs != ""]
-  gsSymb <- getSYMBOL(gs,data = "hgu133plus2.db")
+  gsSymb <- getSYMBOL(gs,data = "hgu133a.db")
   gsSymbol[[colnames(geneSets[i])]] <- unique(gsSymb[!is.na(gsSymb)])
 }
 genesetsNames <- names(gsEntrez)
@@ -1037,7 +1037,7 @@ simbols <-getSYMBOL(rownames(xAB), "hgu133a")
 
 Una vez recopilados los componentes necesarios se ejecuta la llamada al método \texttt{GSA}
 
-<<execGSA>>=
+<<execGSA, echo=TRUE, message=FALSE>>=
 require(GSA)
 GSA.obj<-GSA(xAB, yAB, genenames=entrezs, genesets=gsEntrez,  resp.type="Two class unpaired", nperms=100)
 GSA.listsets(GSA.obj, geneset.names=genesetsNames, FDRcut=.5)
@@ -1047,7 +1047,7 @@ Si en vez de usar una lista ``ad-hoc" de genesets se desea utilizar conjuntos p�
 
 En este ejemplo se utiliza el conjunto de grupos de genes definidos por los pathways de KEGG.
 
-<<GSAbyKEGG, eco=FALSE, message=FALSE>>=
+<<GSAbyKEGG, echo=TRUE, message=FALSE, verbose=FALSE>>=
 geneset.obj <- GSA.read.gmt(file.path(dataDir,"c2.cp.kegg.v5.1.entrez.gmt"))
 GSA.obj2 <- GSA(xAB, yAB, genenames=entrezs, genesets=geneset.obj$genesets,  resp.type="Two class unpaired", nperms=100)
 GSA.listsets (GSA.obj2, geneset.names=geneset.obj$geneset.names, FDRcut=.5)

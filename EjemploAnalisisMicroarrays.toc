@@ -35,7 +35,7 @@
 \contentsline {subsubsection}{\numberline {6.2.1}Tablas de anotaciones sencillas}{29}{subsubsection.6.2.1}
 \contentsline {subsubsection}{\numberline {6.2.2}Archivos de resultados con tablas hiperenlazables}{29}{subsubsection.6.2.2}
 \contentsline {subsection}{\numberline {6.3}Visualizaci\IeC {\'o}n de los perfiles de expresi\IeC {\'o}n}{30}{subsection.6.3}
-\contentsline {subsection}{\numberline {6.4}An\IeC {\'a}lisis de la significaci\IeC {\'o}n biol\IeC {\'o}gica (1): An\IeC {\`a}lisi de enriquecimiento}{31}{subsection.6.4}
+\contentsline {subsection}{\numberline {6.4}An\IeC {\'a}lisis de la significaci\IeC {\'o}n biol\IeC {\'o}gica (1): An\IeC {\'a}lisis de enriquecimiento}{31}{subsection.6.4}
 \contentsline {subsection}{\numberline {6.5}An\IeC {\'a}lisis de la significaci\IeC {\'o}n biol\IeC {\'o}gica (2): Expresi\IeC {\'o}n diferencial de conjuntos de genes}{34}{subsection.6.5}
 \contentsline {section}{\numberline {7}Resumen de resultados y discusi\IeC {\'o}n}{42}{section.7}
 \contentsline {subsection}{\numberline {7.1}Discusi\IeC {\'o}n}{43}{subsection.7.1}

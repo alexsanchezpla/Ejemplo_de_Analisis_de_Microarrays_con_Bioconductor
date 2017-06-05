@@ -1,3 +1,46 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: EjemploAnalisisMicroarrays.aux
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: EjemploAnalisisMicroarrays.aux
 The style file: plain.bst
 Database file #1: MDA-references.bib
+You've used 12 entries,
+            2118 wiz_defined-function locations,
+            585 strings with 6611 characters,
+and the built_in function-call counts, 4591 in all, are:
+= -- 438
+> -- 270
+< -- 1
++ -- 106
+- -- 94
+* -- 367
+:= -- 797
+add.period$ -- 39
+call.type$ -- 12
+change.case$ -- 81
+chr.to.int$ -- 0
+cite$ -- 12
+duplicate$ -- 144
+empty$ -- 316
+format.name$ -- 94
+if$ -- 919
+int.to.chr$ -- 0
+int.to.str$ -- 12
+missing$ -- 13
+newline$ -- 65
+num.names$ -- 26
+pop$ -- 67
+preamble$ -- 1
+purify$ -- 70
+quote$ -- 0
+skip$ -- 98
+stack$ -- 0
+substring$ -- 286
+swap$ -- 22
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 46
+warning$ -- 0
+while$ -- 42
+width$ -- 14
+write$ -- 138
