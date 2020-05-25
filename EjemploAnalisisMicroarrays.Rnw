@@ -37,7 +37,7 @@ Selección de genes diferencialmente expresados}
 
 \section{Introducción y objetivos}
 
-Este documento presenta una solución al ejercicio de análisis de microarrays propuesto en la asignatura de \emph{Genómica Funcional y Análisis de Microarrays}. Su objetivo no es mostrar como realizar el mejor análisis de microarrays posible sino como hacerlo utilizando los conceptos y ejemplos proporcionados en las unidades dedicadas a este tema.
+Este documento presenta un ejemplo de análisis de microarrays realizado con R y Bioconductor. Su objetivo no es mostrar como realizar el mejor análisis de microarrays posible sino realizar una presentación didáctica que sirva de introducción completa al tema.
 
 \subsection{Estructura del documento}
 
@@ -45,8 +45,7 @@ Típicamente un trabajo científico o técnico se organiza en varias partes: \em
 
 \subsection{Objetivos}
 
-El objetivo de este trabajo es realizar un análisis de datos de microarrays 
-para encontrar genes diferencialmente expresados entre varios tipos de tumores de cancer de mama clasificados en tres grupos: apocrinos (APO), basales (BAS) y luminales (LUMI). 
+El objetivo de este trabajo es realizar un análisis de datos de microarrays para encontrar genes diferencialmente expresados entre varios tipos de tumores de cancer de mama clasificados en tres grupos: apocrinos (APO), basales (BAS) y luminales (LUMI). 
 
 Esta clasificación se basa en la resistencia de los tumores a los receptores de estrógenos y de andrógenos. 
 \begin{itemize}
@@ -61,7 +60,7 @@ Es conveniente destacar que, de hecho, el objetivo de la práctica difiere del o
 
 \subsection{Etapas del analisis}
 
-El análisis se ha realizado siguiendo las pautas descritas en los capítulos 6 a 11 de los apuntes de la asignatura \url{http://ueb.vhir.org/cursos/Microarrays} y resumidos en la figura \ref{fig:pipeline}.
+El análisis se ha realizado siguiendo las pautas descritas en los capítulos 6 a 11 de unos materiales para un curso de análisis de microarrays \url{http://ueb.vhir.org/cursos/Microarrays} y resumidos en la figura \ref{fig:pipeline}.
 
 \begin{figure}[htbp]\begin{center}
 \includegraphics[width=9cm]{images/analysisProcess}\\
@@ -71,7 +70,7 @@ El análisis se ha realizado siguiendo las pautas descritas en los capítulos 6 
 
 \subsection{Métodos de análisis}
 
-Antes de hibridar los microarrays\footnote{Esta primera parte es ficticia en tanto que no hemos tendio acceso al proceso de elaboración de los microarrays, por lo que he escrito lo que suele ponerse en esta parte} se comprobó la calidad del cRNA de cada muestra. Sólo las que demostraron una calidad suficiente --presumiblemente un valor de ``Bio-analyser''\footnote{Sistema para el análisi de la calidad del RNA} igual o superior a 7-- se sometieron a análisis posterior.. 
+Antes de hibridar los microarrays\footnote{Esta primera parte es ficticia en tanto que no hemos tenido acceso al proceso de elaboración de los microarrays, por lo que he escrito lo que suele ponerse en esta parte} se comprobó la calidad del cRNA de cada muestra. Sólo las que demostraron una calidad suficiente --presumiblemente un valor de ``Bio-analyser''\footnote{Sistema para el análisi de la calidad del RNA} igual o superior a 7-- se sometieron a análisis posterior.. 
 
 Los valores ``crudos'' de expresión obtenidos directamente de los archivos CEL se preprocesa utilizando el método de RMA (\cite{Irizarry:2003}), un proceso de tres pasos que integra la corrección de fondo, la normalización y el resumen de los valores del grupo de sondas en un único valor de expresión ``absoluta''. Dichos valores normalizados fueron la base para todos los análisis.
 
@@ -88,9 +87,7 @@ Este método extiende el análisis de la varianza clásico utilizando métodos B
 Los genes más relevantes de cada comparaci\'on se resaltaron utilizando ``volcano-plots'', 
 que organizan los genes a lo largo de dos dimensiones que podemos considerar de importancia biológica y estadística. El eje horizontal representa el cambio medio de expresión entre los dos grupos (en una escala logarítmica, por lo que la regulación hacia arriba y abajo aparecen simétrica), y el segundo (vertical) representa el ``menos logaritmo del p-valor'' por lo que los genes cuyo p-valor asociado sea inferior aparecen más arriba. El primer eje indica el impacto biológico del cambio, y el segundo indica la evidencia estadística, o la fiabilidad de dicho cambio.
 
-
 Con el fin de hacer frente a la problemática derivada del hecho de que muchas pruebas (una por cada gen) se realizan simultáneamente, se realizo un ajuste de p--valores para obtener control sobre la tasa de falsos positivos usando el método de Benjamini y Hochberg (\cite{BenjaminiHochberg:1995}).
-
 
 
 Los genes seleccionados como diferencialmente expresados se agruparon para buscar patrones comunes de expresión entre condiciones experimentales.
@@ -109,8 +106,7 @@ El código siguiente se utilizó para instalar los paquetes de Bioconductor nece
 <<librerias, echo=FALSE, message=FALSE>>=
 installifnot <- function (pckgName){
  if (!(require(pckgName, character.only=TRUE))) {
-    source("https://bioconductor.org/biocLite.R")
-    biocLite(eval(pckgName), suppressUpdates=TRUE)
+    BiocManager::install(eval(pckgName))
   }else{
     print(paste("Package", pckgName, "already installed", sep=" "))
   } 
@@ -856,11 +852,7 @@ EntrezsA <- getEG (rownames(topTab_BvsL), annotation(eset_rma))
 SymbolsA <- getSYMBOL (rownames(topTab_BvsL), annotation(eset_rma))
 ExpressAndTop_BvsL <- cbind(SymbolsA, EntrezsA, topTab_BvsL, exprs(eset_filtered)[rownames(topTab_BvsL), 6:15])
 write.csv2(ExpressAndTop_BvsL, file.path(resultsDir, "ExpressAndTop_BvsL.csv2"))
-
 @
-
-
-
 
 \subsection{Visualización de los perfiles de expresión}
 
@@ -871,7 +863,7 @@ encuentran up o down regulados simultáneamente constituyendo \emph{perfiles de 
 Hay distintas formas de visualización pero aquí tan sólo se presenta el uso de mapas de color o 
 \texttt{Heatmaps}.
 
-En primer lugar seleccionamos los genes avisualizar: Se toman todos aquellos que 
+En primer lugar seleccionamos los genes a visualizar: Se toman todos aquellos que 
 han resultado diferencialmente expresados en alguna de las tres comparaciones.
 
 <<prepareData, eval=TRUE>>=
@@ -956,24 +948,24 @@ for (i in 1:length(listOfTables)){
     annotation="org.Hs.eg.db", ontology="BP",
     pvalueCutoff=0.001, conditional=FALSE,
     testDirection="over")
-  KEGGparams = new("KEGGHyperGParams",
-    geneIds=geneIds, universeGeneIds=entrezUniverse,
-    annotation="org.Hs.eg.db",  
-    pvalueCutoff=0.01, testDirection="over")
+  # KEGGparams = new("KEGGHyperGParams",
+  #   geneIds=geneIds, universeGeneIds=entrezUniverse,
+  #   annotation="org.Hs.eg.db",  
+  #   pvalueCutoff=0.01, testDirection="over")
 
   # Ejecutamos los análisis
 
   GOhyper = hyperGTest(GOparams)
-  KEGGhyper = hyperGTest(KEGGparams)
+  # KEGGhyper = hyperGTest(KEGGparams)
   
 # Creamos un informe html con los resultados
    comparison = names(listOfTables)[i]
    GOfilename =file.path(resultsDir, 
      paste("GOResults.",comparison,".html", sep=""))
-   KEGGfilename =file.path(resultsDir, 
-     paste("KEGGResults.",comparison,".html", sep=""))
+   # KEGGfilename =file.path(resultsDir, 
+   #   paste("KEGGResults.",comparison,".html", sep=""))
   htmlReport(GOhyper, file = GOfilename, summary.args=list("htmlLinks"=TRUE))
-  htmlReport(KEGGhyper, file = KEGGfilename, summary.args=list("htmlLinks"=TRUE))
+  # htmlReport(KEGGhyper, file = KEGGfilename, summary.args=list("htmlLinks"=TRUE))
 }
 @ 
 
@@ -1045,9 +1037,9 @@ GSA.listsets(GSA.obj, geneset.names=genesetsNames, FDRcut=.5)
 
 Si en vez de usar una lista ``ad-hoc" de genesets se desea utilizar conjuntos públicos, pueden descargarse de sitios como el Broad Institute \url{http://software.broadinstitute.org/gsea/downloads.jsp} en formato \texttt{.gmt}.
 
-En este ejemplo se utiliza el conjunto de grupos de genes definidos por los pathways de KEGG.
+En este ejemplo se utiliza el conjunto de grupos de genes definidos por los pathways de KEGG, aunque para simplificar la salida no se ha ejecutado.
 
-<<GSAbyKEGG, echo=TRUE, message=FALSE, verbose=FALSE>>=
+<<GSAbyKEGG, echo=TRUE, message=FALSE, verbose=FALSE, eval=FALSE>>=
 geneset.obj <- GSA.read.gmt(file.path(dataDir,"c2.cp.kegg.v5.1.entrez.gmt"))
 GSA.obj2 <- GSA(xAB, yAB, genenames=entrezs, genesets=geneset.obj$genesets,  resp.type="Two class unpaired", nperms=100)
 GSA.listsets (GSA.obj2, geneset.names=geneset.obj$geneset.names, FDRcut=.5)

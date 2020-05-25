@@ -1,0 +1,504 @@
+---
+title: "Ejemplo de análisis (reproducible) de microarrays"
+author: "Alex Sanchez"
+date: "23/12/2015"
+output:
+  html_document:
+    toc: true
+    theme: united
+---
+
+
+# Introduccion y objetivos
+
+Este documento presenta un ejercicio resuelto de análisis de
+microarrays. Su objetivo no es mostrar como realizar el
+mejor análisis de microarrays posible sino como hacerlo utilizando los
+conceptos y ejemplos proporcionados en las unidades dedicadas a este
+tema.
+
+## Estructura del documento
+
+Típicamente un trabajo científico o técnico se organiza en varias partes: _Introducción_, _Material y Métodos_, _Resultados_ y _Discusión_. Dado que el objetivo de este estudio es demostrar la aplicación de los métodos de análisis explicados en la asignatura esta estructura se relajará. Después de la introducción se realizará una breve descripción del proceso general y los métodos utilizados en cada paso. A continuación se presentarán los resultados obtenidos en cada fase del análisis. Finalmente se presentará una breve discusión sobre las posibles limitaciones encontradas.
+
+## Objetivos
+
+El objetivo de este trabajo es realizar un análisis de datos de microarrays 
+para encontrar genes diferencialmente expresados entre varios tipos de tumores de cancer de mama clasificados en tres grupos: apocrinos (APO), basales (BAS) y luminales (LUMI). 
+
+Esta clasificación se basa en la resistencia de los tumores a los receptores de estrógenos y de andrógenos. 
+
+* Los tumores clasificados como "APO" son negativos para los receptores de estrógenos (ER-) y positivos para los receptores de andrógenos (AR+).
+* los clasificados como "LUMI" son (ER+) y (AR+) y
+* los clasificados como "BAS" son (ER-) y (AR-).
+
+Es conveniente destacar que, de hecho, el objetivo de la práctica difiere del objetivo del artículo en que se basa. Mientras que el artículo se busca  _descubrir_ los tres grupos con los que trabajamos en este ejercicio se pretende caracterizarlos a través de los gene que se expresan de forma distinta entre ellos. No deja de ser un problema del tipo ``el huevo y la gallina'', es decir: _¿Puesto que se trata de grupos distintos encontramos genes que se expresan diferencialmente entre ellos o dado que hay genes que se expresan diferencialmente podemos deducir que son grupos distintos?_
+
+# Materiales y métodos
+## Etapas del analisis
+
+El análisis se ha realizado siguiendo las pautas descritas en los capítulos 6 a 11 de los apuntes de la asignatura [http://ueb.vhir.org/cursos/Microarrays](http://ueb.vhir.org/cursos/Microarrays) y resumidos en la figura 1.
+
+![](images/analysisProcess.png)
+
+## Métodos de análisis
+
+ _Esta primera parte es ficticia en tanto que no hemos tendio acceso al proceso de elaboración
+de los microarrays, por lo que he escrito lo que suele ponerse en esta
+parte_
+
+Antes de hibridar los microarrays se comprobó la calidad del cRNA de cada muestra. Sólo las que
+demostraron una calidad suficiente --presumiblemente un valor de
+``Bio-analyser'' igual o superior a 7-- se sometieron a análisis posterior. 
+
+Los valores ``crudos'' de expresión obtenidos directamente de los
+archivos CEL se preprocesa utilizando el método de RMA
+[@Irizarry:2003], un proceso de tres pasos que integra la corrección
+de fondo, la normalización y el resumen de los valores del grupo de
+sondas en un único valor de expresión _absoluta_. Dichos valores
+normalizados fueron la base para todos los análisis.
+
+Antes de la selección de genes los valores normalizados se sometieron
+a un filtraje no específico para eliminar los genes de baja señal
+(los genes cuya media de la señal en cada grupo no supera un umbral
+mínimo) y los genes de baja variabilidad (los genes cuyo rango
+intercuartil entre todas las muestras no superó un umbral mínimo).
+
+La seleccion de genes diferencialmente expresados entre condiciones
+experimentales se baso en la utilización de modelos lineales
+complementados con una moderación de la varianza mediante metodos
+bayesianos empiricos siguiendo la metodologia desarrollada por Smyth
+[@Smyth:2004].  Este método extiende el análisis de la varianza clásico
+utilizando métodos Bayesianos empíricos para combinar la información
+de cada gen individual con la de todos los genes restantes para
+obtener mejores estimaciones de error. Esto es de gran utilidad en
+análisis de microarrays, un contexto en el que el tamaño de las
+muestras es a menudo pequeño lo que puede dar lugar a estimaciones de
+los errores erráticos y, en consecuencia, p-valores que no son de
+fiar.
+
+Los genes más relevantes de cada comparación se resaltaron utilizando
+_volcano-plots_, que organizan los genes a lo largo de dos
+dimensiones que podemos considerar de importancia biológica y
+estadística. El eje horizontal representa el cambio medio de expresión
+entre los dos grupos (en una escala logarítmica, por lo que la
+regulación hacia arriba y abajo aparecen simétrica), y el segundo
+(vertical) representa el _menos logaritmo del p-valor_ por lo que
+los genes cuyo p-valor asociado sea inferior aparecen más arriba. El
+primer eje indica el impacto biológico del cambio, y el segundo indica
+la evidencia estadística, o la fiabilidad de dicho cambio.
+
+Con el fin de hacer frente a la problemática derivada del hecho de que
+muchas pruebas (una por cada gen) se realizan simultáneamente, se
+realizo un ajuste de p--valores para obtener control sobre la tasa de
+falsos positivos usando el método de Benjamini y Hochberg
+[@BenjaminiHochberg:1995].
+
+Los genes seleccionados como diferencialmente expresados se agruparon
+para buscar patrones comunes de expresión entre condiciones
+experimentales.  Para ello se utilizaron mapas de colores o
+_Heatmaps_ que realizan una agrupación jerárquica de los genes y/o
+las muestras y la representan mediante una gama de colores apropiada,
+de forma que valores altos o bajos se corresponden a colores distintos
+de la gama escogida.
+
+Las listas de genes diferencialmente expresados se anotaron en
+diversas bases de datos (Entrez, Unigene, Gene Ontology, KEGG, ...)
+utilizando los paquetes de anotación para microarrays de affymetrix
+disponibles en el proyecto Bioconductor
+[http://bioconductor.org](http://bioconductor.org).
+
+Para contribuir a la interpretación biológica de los resultados se
+realizó un análisis de enriquecimiento [@Gentleman:2004] que busca
+establecer si las categorias funcionales de los genes seleccionados
+aparecen entre estos genes con mayor (o menor) frecuencia que entre
+todos los del genoma. De ser así se indica que la lista de genes se
+encuentra "enriquecida" en estas funcionalidades, o lo que es lo
+mismo que los procesos afectados por las diferencias son éstos.
+
+### Herramientas y procedimientos  bioinformáticos de análisis
+
+Los análisis estadísticos se realizaron utilizando el lenguaje
+estadístico R y las librerías desarrolladas para el análisis de
+microarray en el proyecto de Bioconductor.
+Para más detalle sobre los métodos
+descritos en esta sección puede consultarse [@Gentleman:2005].
+
+El código siguiente se utilizó para instalar los paquetes de Bioconductor necesarios para el análisis.
+
+```{r,librerias, message=FALSE}
+installifnot <- function (pckgName){
+if(!(require(pckgName, character.only=TRUE))){
+  source("http://Bioconductor.org/biocLite.R")
+  biocLite(pckgName)
+  }
+}
+installifnot("Biobase")
+installifnot("hgu133a.db")
+installifnot("affy")
+installifnot("arrayQualityMetrics")
+installifnot("genefilter")
+installifnot("limma")
+installifnot("hgu133a.db")
+installifnot("annotate")
+installifnot("hwriter")
+installifnot("gplots")
+installifnot("GOstats")
+```
+
+# Obtención y lectura de los datos
+## Los datos para el análisis
+
+Los datos en que se basa el estudio se han obtenido a partir de tumores de
+mama (“advanced/inflammatory breast tumours”) y fueron tomados antes del
+tratamiento de pacientes enrolados en un estudio clı́nico (EORTC 10994).
+Los microarrays se prepararon a partir de RNA total extraı́do de secciones
+de 25 mm de biopsias y amplificados mediante el procedimiento “Eberwine T7
+procedure” siguiendo el protocolo indicado por Affymetrix para pequeñas muestras.
+Los datos de los microarrays se encuentran en Gene Expression Omnibus
+(GEO) con el número de serie GSE1561. Puede accederse a ellos en el siguiente
+enlace http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE1561. El
+artı́culo de Farmer ([4]) et alt.(http://www.ncbi.nlm.nih.gov/pubmed/15897907)
+describe el estudio.
+
+## Localización de los datos
+
+Como es habitual en este curso supondremos que trabajamos en un directorio
+escogido por nosotros y cuya localización se asigna a la variable workingDir.
+Asumiremos que los datos se encuentran en un subdirectorio del anterior,
+denominado “data” que se almacenará en la variable dataDir y que los resultados
+se almacenarán en un directorio “results” cuyo nombre completo se almacenará
+en la variable resultsDir.
+
+```{r, preparaDirectorios}
+workingDir <-getwd()
+dataDir <-file.path(workingDir, "data")
+resultsDir <- file.path(workingDir,"results")
+celfilesDir <- file.path(workingDir,"celfiles")
+setwd(workingDir)
+```
+
+### Selección de muestras para el análisis
+
+Este análisis se ha basado en un subconjunto de muestras del estudio original.
+Las muestras se han obtenido de la lista original mediante un pequeño script de
+R.
+De la dirección http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=
+GSE1561 es posible descargar un archivo comprimido con los 49 archivos “.cel”.
+Con el fin de simplificar el análisis se decidió seleccionar aleatoriamente 5 arrays de cada grupo utilizando a partir de la información contenida en el archivo:
+“Asignacion de Muestras A Grupos.csv” elaborado a partir de la información
+sobre el diseño experimental contenida en: http://www.ncbi.nlm.nih.gov/
+geo/gds/profileGraph.cgi?gds=1329
+
+```{r, tomaMuestras, eval=FALSE}
+muestras <- read.csv2(file.path(dataDir, "Asignacion_de_muestras_a_grupos.csv"),
+head=T)
+misMuestras <- as.character (muestras$Sample)
+paraAnalisis <- c(sample(misMuestras[1:6], 5),
+sample(misMuestras[7:20], 5),
+sample(misMuestras[23:48], 5))
+alAnalisis <-muestras[muestras$Sample %in% paraAnalisis,]
+write.table(alAnalisis, file=file.path(dataDir, "targets.txt"),
+sep="\t", row.names=FALSE, quote=FALSE)
+
+```
+
+### Lectura de los datos
+
+La lectura de datos se lleva a cabo utilizando las clases y métodos definidas
+en los paquetes Biobase y affy de Bioconductor.
+Una forma cómoda de leer los datos y, al mismo tiempo, asignar a cada muestra los valores de las covariables (por ejemplo el grupo para el analisis) consiste
+en crear un pequeño archivo de texto, que suele denominarse targets.txt y
+que contiene la identificacion de cada archivo con la asignación de cada muestra
+a cada condición experimental.
+
+
+```{r, phenoData1}
+require(Biobase)
+sampleInfo <-read.AnnotatedDataFrame(file.path(dataDir,"targets.txt"), 
+  header = TRUE, row.names = 1) 
+show(pData(sampleInfo))
+```
+
+El contenido del archivo targets se utiliza en la lectura de los datos y la
+creación del objeto rawData de la clase affybatch que contendrá las intensidade
+“crudas” de cada archivo .CEL
+
+```{r,affybatch.create, message=FALSE}
+require(affy)
+fileNames <- rownames(pData(sampleInfo))
+rawData <- read.affybatch(filenames=file.path(celfilesDir,fileNames),
+                          phenoData=sampleInfo)
+show(rawData)
+```
+Este objeto es la base para todos los análisis que se realizarán.
+
+# Preprocesado: Exploración, Control de Calidad y Normalización
+
+Los datos procedentes de la lectura de los microarrays se denominan datos
+“crudos” y deben ser pre-procesados de diversas formas antes de analizarlos.
+“Preprocesado” es un término genérico que engloba varios procesos
+Exploración y control de calidad de los datos.
+Normalización y resumen (llamdo “sumarización”) de los valores de las
+sondas de cada grupo de sondas.
+Filtrado no especı́fico para eliminar el efecto de genes que no se expresan
+o bien no se expresan de forma distinta entre los grupos.
+A su vez la exploración y el control de calidad contempla:
+1. Exploraciones estadı́sticas estándar.
+2. Técnicas de control de calidad desarrolladas especı́ficamente para datos
+de microarrays.
+
+## Exploración y visualización
+
+La exploración de los datos suele basarse en técnicas univariantes como los
+histogramas o los diagramas de caja o en técnicas multivariantes como los análisis de conglomerados (“clusters”), de distancias o de análisis de componentes
+principales.
+
+```{r, explora1}
+## ----preajustes
+colores <- c(rep("yellow", 5), rep("blue", 5), rep("red", 5))
+grupos <- pData(rawData)$Group
+numSamples <- nrow(pData(rawData))
+sampleNames <-paste( pData(rawData)$SampleIDs, grupos, sep=".")
+colnames(exprs(rawData))<-sampleNames
+
+## ----plotHist
+hist(rawData, main="Signal distribution", col=colores, lty=1:numSamples)
+legend (x="topright", legend=sampleNames , col=colores, lty=1:numSamples)
+
+## ----boxplot
+boxplot(rawData, cex.axis=0.6, col=colores, las=2, names=sampleNames, 
+        main="Signal distribution for selected chips")
+
+## ----plotPCA
+plotPCA <- function ( X, labels=NULL, colors=NULL, dataDesc="", scale=FALSE)
+{
+  pcX<-prcomp(t(X), scale=scale) # o prcomp(t(X))
+  loads<- round(pcX$sdev^2/sum(pcX$sdev^2)*100,1)
+  xlab<-c(paste("PC1",loads[1],"%"))
+  ylab<-c(paste("PC2",loads[2],"%"))
+  if (is.null(colors)) colors=1
+  minX <- min(pcX$x[,1])
+  maxX <- max(pcX$x[,1])
+  incremX <- maxX - minX
+  deltaX <- incremX/10
+  minY <-min(pcX$x[,2])
+  maxY <- max(pcX$x[,2])
+  incremY <- maxY - minY
+  deltaY <- incremY/10
+  plot(pcX$x[,1:2],xlab=xlab,ylab=ylab, col=colors, 
+       xlim=c(minX-deltaX, maxX+deltaX),
+       ylim=c(minY-deltaY, maxY+deltaY))
+  text(pcX$x[,1],pcX$x[,2], labels, pos=3, cex=0.8)
+  title(paste("Plot of first 2 PCs for expressions in", dataDesc, sep=" "), cex=0.8)
+}
+
+## ----plotPCA2D
+
+plotPCA(exprs(rawData), labels=sampleNames, dataDesc="selected samples")
+
+## ----distAnalisis
+
+  manDist <-  dist(t(exprs(rawData))) 
+  heatmap (as.matrix(manDist),  col=heat.colors(16))  
+
+## ----plotDendro
+clust.euclid.average <- hclust(dist(t(exprs(rawData))),method="average")
+plot(clust.euclid.average, labels=sampleNames, main="Hierarchical clustering of samples",  hang=-1)
+
+```
+
+## Paquetes “all-in-one” para el control de calidad”
+
+El paquete arrayQualitMetrics encapsula todos los análisis anteriores, y
+alguno más, facilitando su ejecución e incluso su interpretación. La instrucción
+arrayQualityMetrics lleva a cabo todos los análisi de golpe y genera un informe de resultados con ayudas a la interpretación y a la detección de arrays
+problemáticos.
+
+```{r, arrayQM, cache=TRUE, message=FALSE, eval=FALSE}
+stopifnot(require(arrayQualityMetrics))
+arrayQualityMetrics(rawData, outdir = file.path(resultsDir, "arrayQuality"),force=TRUE)
+
+```
+
+
+### Archivos con los resultados del control de calidad
+
+Los resultados del control de calidad realizado con arrayQualityMetrics
+se encuentran accesibles a traves del archivo index.html contenido en el subdirectorio creado al invocarlo -en este caso denominado arrayQuality.
+
+## Normalizacion y Filtraje
+
+Una vez realizado el control de calidad se procede a normalizar los datos y
+sumarizarlos.
+La normalización puede hacerse por distintos métodos (MAS5, VSN, RMA,
+GCRMA, ...) pero en este caso se utilizará el método RMA que es sin duda el
+más utilizado entre arrays de affymetrix.
+El procesado mediante RMA implica un proceso en tres etapas:
+Corrección de fondo (el RMA hace precisamente esto).
+Normalización para hacer los valores de los arrays comparables.
+Summarización de las diversas sondas asociadas a cada grupo de sondas
+para dar un único valor.
+
+```{r, normalizacion}
+stopifnot(require(affy))
+eset_rma <- rma(rawData)    
+eset_rma
+```
+
+## Filtraje
+
+El filtraje no especı́fico permite eliminar los genes que varı́an poco entre
+condiciones o que deseamos quitar por otras razones como por ejemplo que no
+disponemos de anotación para ellos. La función nsFilter permite eliminar los
+genes que, o bien varı́an poco, o bien no se dispone de anotación para ellos.
+Si al filtrar deseamos usar las anotaciones, o la falta de ellas, como criterio
+de filtraje debemos disponer del correspondiente paquete de anotaciones.
+
+```{r, filtraje}
+require(genefilter)
+filtered <- nsFilter(eset_rma, require.entrez=TRUE,
+         remove.dupEntrez=TRUE, var.func=IQR,
+         var.cutoff=0.5, var.filter=TRUE,
+         filterByQuantile=TRUE, feature.exclude="^AFFX")
+
+names(filtered)
+class(filtered$eset)
+print(filtered$filter.log)
+eset_filtered <-filtered$eset
+
+```
+
+### Archivos de resultados normalizados
+
+El resultado de la normalización y el filtraje es un objeto expressionSet
+almacenado en un archivo binario datos.normaliados.Rda, que será la base
+para todos los estudios posteriores.
+
+```{r, saveData}
+save(eset_rma, eset_filtered, file=file.path(resultsDir, "datos.normalizados.Rda"))
+```
+
+# Selección de genes diferencialmente expresados
+
+Como en las etapas anteriores la selección de genes diferencialmente expresados (GDE) puede basarse en distintas aproximaciones, desde la t de Student
+al programa SAM pasando por multitud de variantes.
+En este ejemplo, dado que se realizaran tres comparaciones que luego deseamos comparar entre ellas, se aplicará la aproximación presentada por Smyth
+et al. (2004) basado en la utilización del modelo lineal general combinada con
+un método para obtener una estimación mejorada de la varianza.
+
+## Análisis basado en modelos lineales
+### Matrices de diseño y de contrastes
+
+El primer paso para el análisis basado en modelos lineales es crear la matriz
+de diseño. Básicamente se trata de una tabla que describe la asignación de cada
+muestra a un grupo. Tiene tantas filas como muestras y tantas columnas como
+grupos (si solo se considera un factor)Cada fila contiene un uno en la columna
+del grupo al que pertenece la muestra y un cero en las restantes.
+La matriz de contrastes esse utiliza para describir las comparaciones entre
+grupos. Consta de tantas columnas como comparaciones y tantas filas como
+grupos (es decir como columnas de la matriz de diseño). Una comparación entre
+grupos –lamada “contraste”– se representa con un “1” y un “-1” en las filas de los
+grupos a comparar y ceros en las restantes. Si varios grupos intervinieran en la
+comparación se tendrı́a tantos coeeficientes como grupos con la única restricción
+de que su suma serı́a cero.
+La matriz de diseño puede definirse manualmente o a partir de un factor
+creado especı́ficamente para ello.
+Manualmente, seria:
+
+```{r, matDesign}
+design<-matrix(
+            c(1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
+              0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,
+              0,0,0,0,0,0,0,0,0,0,1,1,1,1,1),
+            nrow=15,byrow=F)
+colnames(design)<-c("A", "B", "L")
+rownames(design) <-  sampleNames 
+print(design)
+
+```
+
+Las comparaciones que nos interesan son las diferencias, dos a dos entre cada
+tipo de tumor lo que puede hacerse con los contrastes siguientes:
+
+```{r. setContrasts}
+require(limma)
+cont.matrix <- makeContrasts (
+      AvsB = B-A,
+      AvsL = L-A,
+      BvsL = L-B,
+      levels=design)
+print(cont.matrix)
+
+```
+
+### Estimación del modelo y selección de genes
+
+Una vez definida la matriz de diseño y los contrastes podemos pasar a estimar el modelo, estimar los contrastes y realizar las pruebas de significación
+que nos indiquen, para cada gen y cada comparación, si puede considerarse
+diferencialmente expresado.
+El método implementado en limma amplı́a el análisis tradicional utilizando
+modelos de Bayes empı́ricos para combinar la información de toda la matriz de
+datos y de cada gen individual y obtener estimaciones de error mejoradas.
+El análisis proporciona los estadı́sticos de test habituales como Fold-change
+t-moderados o p-valores ajustados que se utilizan para ordenar los genes de mas
+a menos diferencialmente expresados.
+A fin de controlar el porcentaje de falsos positivos que puedan resultar del
+alto numero de contrastes realizados simultaneamente los p–valores se ajustan
+de forma que tengamos control sobre la tasa de falsos positivos utilizando el
+metodo de Benjamini y Hochberg ([1]).
+
+```{r, linearmodelfit}
+require(limma)
+fit<-lmFit(eset_rma, design)
+fit.main<-contrasts.fit(fit, cont.matrix)
+fit.main<-eBayes(fit.main)
+```
+
+
+La funcion topTable genera para cada contraste una lista de genes ordenados
+de mas a menos diferencialmente expresados.
+
+```{r, topTabs1}
+topTab_AvsB <- topTable (fit.main, number=nrow(fit.main), coef="AvsB", adjust="fdr"); head(topTab_AvsB)
+topTab_AvsL <- topTable (fit.main, number=nrow(fit.main), coef="AvsL", adjust="fdr"); head(topTab_AvsL)
+topTab_BvsL  <- topTable (fit.main, number=nrow(fit.main) , coef="BvsL", adjust="fdr"); head(topTab_BvsL)
+
+```
+
+Un volcano-plot es una figuras que permite visualizar si hay muchos o pocos
+genes con un gran fold-change y significativamente expresados o si este número
+es bajo. Estos gráficos representa en abscisas los cambios de expresión en escala
+logarı́tmica y en ordenadas el “menos logaritmo” del p-valor o alternativamente
+el estadı́stico B (“log-odds”).
+
+```{r, volcano}
+annotation(eset_rma)
+probeNames <-rownames(fit.main)
+Symbols <- getSYMBOL(probeNames, annotation(eset_rma))
+myNames <- paste(probeNames, Symbols, sep=".")
+head(myNames)
+volcanoplot(fit.main, coef="AvsB", highlight=10, names=myNames)
+```
+
+# Post-procesado de las listas de genes obtenidas
+
+Una vez obtenidas las listas de genes diferencialmente expresados pueden
+llevarse a cabo todo tipo de análisis sobre ellas, generalmente encaminados a
+facilitar la interpretación de los resultados.
+Entre estas exploraciones –que podemos llamar genericamente“post-procesado
+de las listas” se encuentra
+La anotación de las listas de genes en diversas bases de datos.
+La comparación entre las listas para determinar que genes cambian simultaneamente -o no- en varias comparaciones (o cuales cambian en una
+comparación pero no en otra).
+La visualización de todos los genes seleccionados en varias comparaciones
+para, de forma similar a lo anterior, detectar grupos de genes con patrones
+de cambio similares –o distintos– entre distintas comparaciones.
+EL análisis de significación biológica de las listas mediante análisis de enriquecimiento o mediante “gene set analysis” para detectar si las listas se
+encuentran enriquecidas en genes asociados a funciones o procesos biológicos determinados.
+
+_**Esta parte del análisis no se presenta en este documento, aunque puede verse la misma en el documento "EjemploAnalisisMicroarrays.Rnw"**_
+
+
+# References
+
