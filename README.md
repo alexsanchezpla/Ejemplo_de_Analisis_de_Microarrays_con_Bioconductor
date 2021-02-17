@@ -1,4 +1,4 @@
-# Ejemplo_De_MDA_con_Bioconductor
+# Ejemplo de Analisis de Microarrays con Bioconductor
 
 This repository contains a working example of microarray data analysis using Bioconductor.
 
